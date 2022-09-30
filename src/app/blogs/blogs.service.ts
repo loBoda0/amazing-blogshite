@@ -53,4 +53,12 @@ export class BlogService {
     this.blogs.push(blog)
     console.log(this.blogs)
   }
+  
+  updateBlogPost(id: number, blog: Blog) {
+    this.blogs[id] = blog;
+  }
+  
+  deleteBlogPost(id: number) {
+    this.blogs.splice(id, 1)
+  }
 }

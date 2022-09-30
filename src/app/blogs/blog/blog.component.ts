@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { BlogService } from '../blogs.service';
 import { Blog } from '../blog.model';
 
@@ -12,7 +12,7 @@ export class BlogComponent implements OnInit {
   blog: Blog
   id: number
 
-  constructor(private blogsService: BlogService, private route: ActivatedRoute) { }
+  constructor(private blogsService: BlogService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.route.params
@@ -22,5 +22,10 @@ export class BlogComponent implements OnInit {
           this.blog = this.blogsService.getBlogById(this.id)
         }
       )
+  }
+
+  deletePost() {
+    this.blogsService.deleteBlogPost(this.id)
+    this.router.navigate(['/'])
   }
 }

@@ -8,13 +8,15 @@ import { BlogsComponent } from './blogs/blogs.component';
 import { BlogService } from './blogs/blogs.service';
 import { BlogComponent } from './blogs/blog/blog.component';
 import { CreateBlogComponent } from './blogs/create-blog/create-blog.component';
+import { EditBlogComponent } from './blogs/edit-blog/edit-blog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BlogsComponent,
     BlogComponent,
-    CreateBlogComponent
+    CreateBlogComponent,
+    EditBlogComponent
   ],
   imports: [
     BrowserModule,
