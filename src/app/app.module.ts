@@ -9,6 +9,7 @@ import { BlogService } from './blogs/blogs.service';
 import { BlogComponent } from './blogs/blog/blog.component';
 import { CreateBlogComponent } from './blogs/create-blog/create-blog.component';
 import { EditBlogComponent } from './blogs/edit-blog/edit-blog.component';
+import { AuthService } from './user/auth.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { EditBlogComponent } from './blogs/edit-blog/edit-blog.component';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [BlogService],
+  providers: [BlogService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

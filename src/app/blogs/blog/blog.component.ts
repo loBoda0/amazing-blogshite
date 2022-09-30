@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { BlogService } from '../blogs.service';
 import { Blog } from '../blog.model';
+import { AuthService } from 'src/app/user/auth.service';
 
 @Component({
   selector: 'app-blog',
@@ -11,8 +12,9 @@ import { Blog } from '../blog.model';
 export class BlogComponent implements OnInit {
   blog: Blog
   id: number
+  isLogedIn: boolean = false
 
-  constructor(private blogsService: BlogService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private blogsService: BlogService, private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.route.params
@@ -22,6 +24,7 @@ export class BlogComponent implements OnInit {
           this.blog = this.blogsService.getBlogById(this.id)
         }
       )
+    this.isLogedIn = this.authService.getLogin()
   }
 
   deletePost() {

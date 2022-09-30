@@ -2,5 +2,5 @@
 <p>{{ blog.body }}</p>
 <img [src]="blog.image" alt="" />
 <a routerLink="/">Go Back</a>
-<a routerLink="edit">Update Post</a>
-<button (click)="deletePost()">Delete Post</button>
+<a *ngIf="isLogedIn" routerLink="edit">Update Post</a>
+<button *ngIf="isLogedIn" (click)="deletePost()">Delete Post</button>
