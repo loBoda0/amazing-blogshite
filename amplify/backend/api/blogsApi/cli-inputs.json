@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "paths": {
+    "/blogs": {
+      "name": "/blogs",
+      "lambdaFunction": "blogsLamba",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "update",
+          "delete"
+        ]
+      }
+    }
+  }
+}

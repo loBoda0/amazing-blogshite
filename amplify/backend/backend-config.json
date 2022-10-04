@@ -1,10 +1,10 @@
 {
   "auth": {
-    "amazingblogshite58a58809": {
+    "amazingblogshite": {
       "service": "Cognito",
+      "serviceType": "managed",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
-      "customAuth": false,
       "frontendAuthConfig": {
         "socialProviders": [],
         "usernameAttributes": [],
@@ -23,6 +23,47 @@
           "EMAIL"
         ]
       }
+    },
+    "userPoolGroups": {
+      "service": "Cognito-UserPool-Groups",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "amazingblogshite",
+          "attributes": [
+            "UserPoolId",
+            "AppClientIDWeb",
+            "AppClientID",
+            "IdentityPoolId"
+          ]
+        }
+      ]
+    }
+  },
+  "storage": {},
+  "function": {
+    "blogsLamba": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": []
+    }
+  },
+  "api": {
+    "blogsApi": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "blogsLamba",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ]
     }
   }
 }

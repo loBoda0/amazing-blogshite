@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -10,6 +10,10 @@ import { BlogComponent } from './blogs/blog/blog.component';
 import { CreateBlogComponent } from './blogs/create-blog/create-blog.component';
 import { EditBlogComponent } from './blogs/edit-blog/edit-blog.component';
 import { AuthService } from './user/auth.service';
+import { LoginComponent } from './user/login/login.component';
+import { SignupComponent } from './user/signup/signup.component';
+
+import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 
 @NgModule({
   declarations: [
@@ -17,12 +21,16 @@ import { AuthService } from './user/auth.service';
     BlogsComponent,
     BlogComponent,
     CreateBlogComponent,
-    EditBlogComponent
+    EditBlogComponent,
+    LoginComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    ReactiveFormsModule,
+    AppRoutingModule,
+    AmplifyAuthenticatorModule
   ],
   providers: [BlogService, AuthService],
   bootstrap: [AppComponent]

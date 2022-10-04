@@ -1,4 +1,4 @@
-import { Blog } from "./blog.model"
+import { Blog, Comment } from "./blog.model"
 
 export class BlogService {
   private blogs: Blog[] = [
@@ -60,5 +60,12 @@ export class BlogService {
   
   deleteBlogPost(id: number) {
     this.blogs.splice(id, 1)
+  }
+
+  addComment(id: number, body: string, userId: string) {
+    const comment = new Comment(userId, body)
+    console.log(comment)
+    this.blogs[id].comments.push(comment)
+    console.log(this.blogs[id].comments)
   }
 }

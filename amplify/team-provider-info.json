@@ -9,11 +9,19 @@
       "UnauthRoleName": "amplify-amazingblogshite-dev-183036-unauthRole",
       "StackName": "amplify-amazingblogshite-dev-183036",
       "StackId": "arn:aws:cloudformation:eu-central-1:930698342647:stack/amplify-amazingblogshite-dev-183036/0dca27d0-39cb-11ed-b352-0260658cda7e",
-      "AmplifyAppId": "dxonbh22irugq"
+      "AmplifyAppId": "dxonbh22irugq",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-amazingblogshite-dev-183036-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
       "auth": {
-        "amazingblogshite58a58809": {}
+        "false": {},
+        "amazingblogshite": {}
+      },
+      "function": {
+        "blogsLamba": {
+          "deploymentBucketName": "amplify-amazingblogshite-dev-183036-deployment",
+          "s3Key": "amplify-builds/blogsLamba-54717444725a77795566-build.zip"
+        }
       }
     }
   }

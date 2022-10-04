@@ -12,7 +12,9 @@ import { AuthService } from 'src/app/user/auth.service';
 export class BlogComponent implements OnInit {
   blog: Blog
   id: number
+  message: string = ''
   isLogedIn: boolean = false
+  userId: string = 'test'
 
   constructor(private blogsService: BlogService, private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
@@ -25,6 +27,10 @@ export class BlogComponent implements OnInit {
         }
       )
     this.isLogedIn = this.authService.getLogin()
+  }
+
+  postComment() {
+    this.blogsService.addComment(this.id, this.message, this.userId)
   }
 
   deletePost() {
