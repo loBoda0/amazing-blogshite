@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -8,9 +9,10 @@ import { AuthService } from '../auth.service';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, OnDestroy {
   signUpForm: FormGroup
   formState: string
+  sub: Subscription
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -21,7 +23,7 @@ export class SignupComponent implements OnInit {
       'email': new FormControl(null, [Validators.required, Validators.email]),
       'verificationCode': new FormControl(null)
     })
-    this.authService.formState.subscribe(
+    this.sub = this.authService.formState.subscribe(
       (value) => {
         if (value === 'accVerified') {
           this.router.navigate(['..'])
@@ -29,6 +31,10 @@ export class SignupComponent implements OnInit {
         this.formState = value
       }
     )
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe()
   }
 
   onSubmit() {

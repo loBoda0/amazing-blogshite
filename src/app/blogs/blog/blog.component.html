@@ -1,6 +1,8 @@
 <a routerLink="/">Go Back</a>
-<a *ngIf="isLogedIn" routerLink="edit">Update Post</a>
-<button *ngIf="isLogedIn" (click)="deletePost()">Delete Post</button>
+<a *ngIf="userId === blog.userId" routerLink="edit">Update Post</a>
+<button *ngIf="userId === blog.userId" (click)="deletePost()">
+  Delete Post
+</button>
 <p>{{ blog.title }}</p>
 <p>{{ blog.body }}</p>
 <img [src]="blog.image" alt="" />
@@ -11,4 +13,9 @@
   <button (click)="postComment()">Post comment</button>
 </div>
 <p>Comments</p>
-<p *ngFor="let comment of blog.comments">{{ comment.commentBody }}</p>
+<div *ngFor="let comment of blog.comments; let i = index">
+  <p>{{ comment.commentBody }}</p>
+  <button *ngIf="userId === comment.userId" (click)="deleteComment(i)">
+    Delete Comment
+  </button>
+</div>

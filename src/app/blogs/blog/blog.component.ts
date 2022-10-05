@@ -14,7 +14,7 @@ export class BlogComponent implements OnInit {
   id: number
   message: string = ''
   isLogedIn: boolean = false
-  userId: string = 'test'
+  userId: string
 
   constructor(private blogsService: BlogService, private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
@@ -31,10 +31,19 @@ export class BlogComponent implements OnInit {
         this.isLogedIn = value
       }
     )
+    this.authService.userId.subscribe(
+      (value) => {
+        this.userId = value
+      }
+    )
   }
 
   postComment() {
     this.blogsService.addComment(this.id, this.message, this.userId)
+  }
+
+  deleteComment(idx: number) {
+    this.blogsService.deleteComment(this.id, idx)
   }
 
   deletePost() {

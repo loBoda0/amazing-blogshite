@@ -1,5 +1,5 @@
 export class Blog {
-  constructor(public title: string, public body: string, public image?: string, public comments: Comment[] = []) {}
+  constructor(public userId: string, public title: string, public body: string, public image?: string, public comments: Comment[] = []) {}
 }
 
 export class Comment {
