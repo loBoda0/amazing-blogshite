@@ -5,8 +5,10 @@
 <p>{{ blog.body }}</p>
 <img [src]="blog.image" alt="" />
 <br />
-<label for="Comment">Comment on post:</label>
-<input type="text" [(ngModel)]="message" />
-<button (click)="postComment()">Post comment</button>
+<div *ngIf="isLogedIn">
+  <label for="Comment">Comment on post:</label>
+  <input type="text" [(ngModel)]="message" />
+  <button (click)="postComment()">Post comment</button>
+</div>
 <p>Comments</p>
 <p *ngFor="let comment of blog.comments">{{ comment.commentBody }}</p>

@@ -26,7 +26,11 @@ export class BlogComponent implements OnInit {
           this.blog = this.blogsService.getBlogById(this.id)
         }
       )
-    this.isLogedIn = this.authService.getLogin()
+    this.authService.userRegistered.subscribe(
+      (value) => {
+        this.isLogedIn = value
+      }
+    )
   }
 
   postComment() {

@@ -15,10 +15,14 @@ export class BlogsComponent implements OnInit {
 
   ngOnInit(): void {
     this.blogs = this.blogsService.getBlogs()
+    this.authService.userRegistered.subscribe(
+      (value) => {
+        this.isLogedIn = value
+      }
+    )
   }
 
-  changeLogin() {
-    this.authService.setLogin()
-    this.isLogedIn = this.authService.getLogin()
+  onLogOut() {
+    this.authService.signOut()
   }
 }
