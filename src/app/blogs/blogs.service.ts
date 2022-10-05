@@ -1,6 +1,7 @@
-import { HttpClient } from "@angular/common/http"
+import { HttpClient, HttpHeaders } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Blog, Comment } from "./blog.model"
+import { Auth } from "aws-amplify"
 
 
 @Injectable()
@@ -58,7 +59,12 @@ export class BlogService {
   createBlog(blog: Blog) {
     this.blogs.push(blog)
     console.log(this.blogs)
-    this.http.post('https://hh5ayl145i.execute-api.eu-central-1.amazonaws.com/dev/blogs', {blog})
+    Auth.currentSession().then(res => {
+      let jwt = res.getAccessToken().getJwtToken()
+      this.http.post('https://hh5ayl145i.execute-api.eu-central-1.amazonaws.com/dev/blogs', blog , {
+        headers: new HttpHeaders({'Authorization': jwt})
+      })
+    })
   }
   
   updateBlogPost(id: number, blog: Blog) {
