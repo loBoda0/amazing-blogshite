@@ -2,7 +2,7 @@
   "version": "1",
   "cognitoConfig": {
     "identityPoolName": "amazingblogshite_identitypool_a7e723b0",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "amazina7e723b0",
     "userPoolName": "amazingblogshite_userpool_a7e723b0",
     "autoVerifiedAttributes": [
@@ -55,6 +55,16 @@
     "dependsOn": [],
     "userPoolGroupList": [
       "blogUsersPool"
-    ]
+    ],
+    "hostedUI": false,
+    "authProviders": [],
+    "thirdPartyAuth": false,
+    "userPoolGroups": false,
+    "adminQueries": false,
+    "triggers": {},
+    "parentStack": {
+      "Ref": "AWS::StackId"
+    },
+    "permissions": []
   }
 }

@@ -5,12 +5,14 @@
       "name": "/blogs",
       "lambdaFunction": "blogsLamba",
       "permissions": {
-        "setting": "private",
-        "auth": [
-          "create",
-          "update",
-          "delete"
-        ]
+        "groups": {
+          "blogUsersPool": [
+            "create",
+            "update",
+            "delete"
+          ]
+        },
+        "setting": "private"
       }
     }
   }

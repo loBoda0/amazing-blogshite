@@ -41,9 +41,20 @@
       ]
     }
   },
-  "storage": {},
+  "storage": {
+    "blogshiteDB": {
+      "service": "DynamoDB",
+      "providerPlugin": "awscloudformation"
+    }
+  },
   "function": {
     "blogsLamba": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": []
+    },
+    "createBlog": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda",
@@ -61,6 +72,20 @@
           "attributes": [
             "Name",
             "Arn"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "amazingblogshite",
+          "attributes": [
+            "UserPoolId"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "userPoolGroups",
+          "attributes": [
+            "blogUsersPoolGroupRole"
           ]
         }
       ]

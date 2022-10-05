@@ -1,6 +1,12 @@
+import { HttpClient } from "@angular/common/http"
+import { Injectable } from "@angular/core"
 import { Blog, Comment } from "./blog.model"
 
+
+@Injectable()
 export class BlogService {
+  constructor(private http: HttpClient) {}
+
   private blogs: Blog[] = [
     new Blog("Tern, white-winged",
       "Person on outside of car injured in collision with two- or three-wheeled motor vehicle in traffic accident, subsequent encounter",
@@ -52,6 +58,7 @@ export class BlogService {
   createBlog(blog: Blog) {
     this.blogs.push(blog)
     console.log(this.blogs)
+    this.http.post('https://hh5ayl145i.execute-api.eu-central-1.amazonaws.com/dev/blogs', {blog})
   }
   
   updateBlogPost(id: number, blog: Blog) {

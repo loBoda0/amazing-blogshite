@@ -15,12 +15,17 @@
     "categories": {
       "auth": {
         "false": {},
-        "amazingblogshite": {}
+        "amazingblogshite": {},
+        "true": {}
       },
       "function": {
         "blogsLamba": {
           "deploymentBucketName": "amplify-amazingblogshite-dev-183036-deployment",
           "s3Key": "amplify-builds/blogsLamba-54717444725a77795566-build.zip"
+        },
+        "createBlog": {
+          "deploymentBucketName": "amplify-amazingblogshite-dev-183036-deployment",
+          "s3Key": "amplify-builds/createBlog-314677775a386d78794f-build.zip"
         }
       }
     }
