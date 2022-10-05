@@ -14,8 +14,6 @@ import { AuthService } from './user/auth.service';
 import { LoginComponent } from './user/login/login.component';
 import { SignupComponent } from './user/signup/signup.component';
 
-import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,8 +29,7 @@ import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule,
-    AmplifyAuthenticatorModule
+    HttpClientModule
   ],
   providers: [BlogService, AuthService],
   bootstrap: [AppComponent]
