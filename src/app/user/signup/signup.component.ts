@@ -33,10 +33,6 @@ export class SignupComponent implements OnInit, OnDestroy {
     )
   }
 
-  ngOnDestroy(): void {
-    this.sub.unsubscribe()
-  }
-
   onSubmit() {
     const username = this.signUpForm.value.username
     const password = this.signUpForm.value.password
@@ -49,4 +45,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     }
   }
 
+  ngOnDestroy(): void {
+    this.sub.unsubscribe()
+  }
 }

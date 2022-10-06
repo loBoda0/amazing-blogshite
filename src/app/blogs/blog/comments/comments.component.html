@@ -1,0 +1,16 @@
+<p [hidden]="isEditMode">{{ comment.commentBody }}</p>
+<form
+  [hidden]="!isEditMode"
+  [formGroup]="updateCommentForm"
+  (ngSubmit)="updateComment()"
+>
+  <textarea name="" cols="30" rows="1" formControlName="comment"></textarea>
+  <button *ngIf="userId === comment.userId" type="submit">Save Comment</button>
+  <button (click)="toggleEditMode()" type="button">Cancel</button>
+</form>
+<button *ngIf="userId === comment.userId" (click)="toggleEditMode()">
+  Update Comment
+</button>
+<button *ngIf="userId === comment.userId" (click)="deleteComment()">
+  Delete Comment
+</button>

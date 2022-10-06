@@ -43,6 +43,7 @@ export class AuthService {
       this.formState.next('signUp')
       this.userRegistered.next(true)
       this.userId.next(this.user.attributes.sub)
+      console.log(this.userId)
     } catch (err) {
       console.log(err)
     }

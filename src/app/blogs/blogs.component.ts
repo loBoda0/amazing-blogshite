@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../user/auth.service';
+import { Blog } from './blog.model';
 import { BlogService } from './blogs.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { BlogService } from './blogs.service';
   styleUrls: ['./blogs.component.css']
 })
 export class BlogsComponent implements OnInit {
-  blogs: {title: string, body: string, image?: string}[]
+  blogs: Blog[]
   isLogedIn: boolean = false
 
   constructor(private blogsService: BlogService, private authService: AuthService) { }

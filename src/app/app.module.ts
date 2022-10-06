@@ -13,6 +13,7 @@ import { EditBlogComponent } from './blogs/edit-blog/edit-blog.component';
 import { AuthService } from './user/auth.service';
 import { LoginComponent } from './user/login/login.component';
 import { SignupComponent } from './user/signup/signup.component';
+import { CommentsComponent } from './blogs/blog/comments/comments.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { SignupComponent } from './user/signup/signup.component';
     EditBlogComponent,
     LoginComponent,
     SignupComponent,
+    CommentsComponent,
   ],
   imports: [
     BrowserModule,

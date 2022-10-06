@@ -78,11 +78,10 @@ export class BlogService {
   addComment(id: number, body: string, userId: string) {
     const comment = new Comment(userId, body)
     this.blogs[id].comments.push(comment)
-    console.log(this.blogs[id].comments)
   }
 
-  updateComment(postId: number, commentId: number, textBody: Comment) {
-    this.blogs[postId].comments[commentId] = textBody
+  updateComment(postId: number, commentId: number, textBody: string) {
+    this.blogs[postId].comments[commentId].commentBody = textBody
   }
 
   deleteComment(postId: number, commentId: number) {

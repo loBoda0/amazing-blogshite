@@ -9,13 +9,14 @@
 <br />
 <div *ngIf="isLogedIn">
   <label for="Comment">Comment on post:</label>
-  <input type="text" [(ngModel)]="message" />
+  <textarea type="text" [(ngModel)]="message"></textarea>
   <button (click)="postComment()">Post comment</button>
 </div>
 <p>Comments</p>
-<div *ngFor="let comment of blog.comments; let i = index">
-  <p>{{ comment.commentBody }}</p>
-  <button *ngIf="userId === comment.userId" (click)="deleteComment(i)">
-    Delete Comment
-  </button>
-</div>
+<app-comments
+  *ngFor="let comment of blog.comments; let i = index"
+  [comment]="comment"
+  [userId]="userId"
+  [blogId]="blogId"
+  [commentIdx]="i"
+></app-comments>
