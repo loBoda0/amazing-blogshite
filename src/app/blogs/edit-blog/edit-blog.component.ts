@@ -4,6 +4,7 @@ import { BlogService } from '../blogs.service';
 import { Blog } from '../blog.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
+
 @Component({
   selector: 'app-edit-blog',
   templateUrl: './edit-blog.component.html',
@@ -26,12 +27,15 @@ export class EditBlogComponent implements OnInit {
     this.editBlogForm = new FormGroup({
       'title': new FormControl(this.blog.title, Validators.required),
       'body': new FormControl(this.blog.body, Validators.required),
-      'image': new FormControl(this.blog.image),
+      'image': new FormControl(this.blog.image)
     })
   }
 
   updateBlog() {
-    this.blog = this.editBlogForm.value
+    const {title, body, image } = this.editBlogForm.value
+    this.blog.title = title
+    this.blog.body = body
+    this.blog.image = image
     this.blogService.updateBlogPost(this.id, this.blog)
     this.router.navigate(['/'])
   }

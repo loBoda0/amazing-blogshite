@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     })
     this.sub = this.authService.formState.subscribe(
       (value) => {
-        if (value === 'confirmSignUp') {
+        if (value === 'registered') {
           this.router.navigate(['..'])
         }
         this.formState = value

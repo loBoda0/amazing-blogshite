@@ -25,7 +25,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     })
     this.sub = this.authService.formState.subscribe(
       (value) => {
-        if (value === 'accVerified') {
+        if (value === 'registered') {
           this.router.navigate(['..'])
         }
         this.formState = value
@@ -41,7 +41,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     if (this.formState === 'signUp' ) {
       this.authService.signUp(username, password, email)
     } else if (this.formState === 'confirmSignUp') {
-      this.authService.confirmSignUp(username, verificationCode)
+      this.authService.confirmSignUp(username, verificationCode, password)
     }
   }
 

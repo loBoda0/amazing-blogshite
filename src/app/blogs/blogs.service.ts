@@ -9,40 +9,40 @@ export class BlogService {
   constructor(private http: HttpClient) {}
 
   private blogs: Blog[] = [
-    new Blog("51c565e1-6985-40cf-bbdd-bde028c3da26", "Tern, white-winged",
+    new Blog("6971ae53-074c-4f08-a0e9-28672d10746a", "Tern, white-winged",
       "Person on outside of car injured in collision with two- or three-wheeled motor vehicle in traffic accident, subsequent encounter",
       "https://picsum.photos/200"
     ),
-    new Blog("51c565e1-6985-40cf-bbdd-bde028c3da26", "Monitor, water",
+    new Blog("6971ae53-074c-4f08-a0e9-28672d10746a", "Monitor, water",
       "Unspecified traumatic spondylolisthesis of third cervical vertebra",
       "https://picsum.photos/200"
     ),
-      new Blog("51c565e1-6985-40cf-bbdd-bde028c3da26", "Woylie",
+      new Blog("6971ae53-074c-4f08-a0e9-28672d10746a", "Woylie",
       "Complete lesion at C1 level of cervical spinal cord",
     ),
-    new Blog("51c565e1-6985-40cf-bbdd-bde028c3da26", "Tortoise, galapagos",
+    new Blog("6971ae53-074c-4f08-a0e9-28672d10746a", "Tortoise, galapagos",
       "Fracture of unspecified part of neck of femur",
       "https://picsum.photos/200"
     ),
-    new Blog("51c565e1-6985-40cf-bbdd-bde028c3da26", "Sarus crane",
+    new Blog("6971ae53-074c-4f08-a0e9-28672d10746a", "Sarus crane",
       "Acute rheumatic pericarditis"
     ),
-    new Blog("4aaacf88-8723-4565-a8c0-39c92fb3d605", "Vulture, white-rumped",
+    new Blog("619cfb57-58ba-42a4-84a2-3337b1352f51", "Vulture, white-rumped",
       "Furuncle of umbilicus",
       "https://picsum.photos/200"
     ),
-    new Blog("4aaacf88-8723-4565-a8c0-39c92fb3d605", "White-tailed deer",
+    new Blog("619cfb57-58ba-42a4-84a2-3337b1352f51", "White-tailed deer",
       "Insect bite (nonvenomous) of right ear, initial encounter",
       "https://picsum.photos/200"
     ),
-    new Blog("51c565e1-6985-40cf-bbdd-bde028c3da26", "Skunk, striped",
+    new Blog("619cfb57-58ba-42a4-84a2-3337b1352f51", "Skunk, striped",
       "Corrosion of first degree of unspecified axilla, subsequent encounter",
       "https://picsum.photos/200"
     ),
-    new Blog("51c565e1-6985-40cf-bbdd-bde028c3da26", "Francolin, swainson's",
+    new Blog("619cfb57-58ba-42a4-84a2-3337b1352f51", "Francolin, swainson's",
       "Toxic effect of venom of ants, accidental (unintentional), initial encounter"
     ),
-    new Blog("4aaacf88-8723-4565-a8c0-39c92fb3d605", "Bahama pintail",
+    new Blog("619cfb57-58ba-42a4-84a2-3337b1352f51", "Bahama pintail",
       "Multiple fractures of ribs",
       "https://picsum.photos/200"
     )

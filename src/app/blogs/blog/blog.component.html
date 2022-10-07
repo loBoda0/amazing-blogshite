@@ -7,7 +7,7 @@
 <p>{{ blog.body }}</p>
 <img [src]="blog.image" alt="" />
 <br />
-<div *ngIf="isLogedIn">
+<div *ngIf="userId !== ''">
   <label for="Comment">Comment on post:</label>
   <textarea type="text" [(ngModel)]="message"></textarea>
   <button (click)="postComment()">Post comment</button>

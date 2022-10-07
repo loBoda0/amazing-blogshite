@@ -8,9 +8,11 @@
   <button *ngIf="userId === comment.userId" type="submit">Save Comment</button>
   <button (click)="toggleEditMode()" type="button">Cancel</button>
 </form>
-<button *ngIf="userId === comment.userId" (click)="toggleEditMode()">
-  Update Comment
-</button>
-<button *ngIf="userId === comment.userId" (click)="deleteComment()">
-  Delete Comment
-</button>
+<div [hidden]="isEditMode">
+  <button *ngIf="userId === comment.userId" (click)="toggleEditMode()">
+    Update Comment
+  </button>
+  <button *ngIf="userId === comment.userId" (click)="deleteComment()">
+    Delete Comment
+  </button>
+</div>

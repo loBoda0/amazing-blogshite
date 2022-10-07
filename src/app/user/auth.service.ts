@@ -6,31 +6,27 @@ export class AuthService {
   userRegistered = new BehaviorSubject(false)
   formState = new BehaviorSubject("signUp")
   userId = new BehaviorSubject("")
-  user/* : CognitoUser */
 
   async signUp(username: string, password: string, email: string) {
     try {
-      const { user } = await Auth.signUp({
+      await Auth.signUp({
         username,
         password,
         attributes: {
           email
         }
       })
-      this.user = user
-      this.userRegistered.next(true)
       this.formState.next('confirmSignUp')
-      this.userId.next(this.user.attributes.sub)
     } catch (err) {
       this.formState.next('SignUpError')
       console.log(err)
     }
   }
   
-  async confirmSignUp(username: string, verificationCode: string) {
+  async confirmSignUp(username: string, verificationCode: string, password: string) {
     try {
       await Auth.confirmSignUp(username, verificationCode)
-      this.formState.next('accVerified')
+      this.logIn(username, password)
     } catch (err) {
       console.log(err)
     }
@@ -38,11 +34,11 @@ export class AuthService {
   
   async logIn(username: string, password: string) {
     try {
-      this.user = await Auth.signIn(username, password)
-      this.formState.next('confirmSignUp')
-      this.formState.next('signUp')
+      const user = await Auth.signIn(username, password)
+      const { attributes } = await Auth.currentAuthenticatedUser()
+      this.formState.next('registered')
       this.userRegistered.next(true)
-      this.userId.next(this.user.attributes.sub)
+      this.userId.next(attributes.sub)
       console.log(this.userId)
     } catch (err) {
       console.log(err)
@@ -52,8 +48,9 @@ export class AuthService {
   async signOut() {
     try {
       await Auth.signOut();
+      this.formState.next('signUp')
       this.userId.next('')
-        this.userRegistered.next(false)
+      this.userRegistered.next(false)
     } catch (error) {
         console.log('error signing out: ', error);
     }
