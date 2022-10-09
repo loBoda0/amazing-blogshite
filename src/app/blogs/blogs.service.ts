@@ -1,12 +1,14 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Blog, Comment } from "./blog.model"
-import { Auth } from "aws-amplify"
+import { Auth, API } from "aws-amplify"
 
 
 @Injectable()
 export class BlogService {
   constructor(private http: HttpClient) {}
+  apiName = 'blogsApi'
+  path = '/blogs'
 
   private blogs: Blog[] = [
     new Blog("6971ae53-074c-4f08-a0e9-28672d10746a", "Tern, white-winged",
@@ -56,15 +58,22 @@ export class BlogService {
     return this.blogs[id]
   }
 
-  createBlog(blog: Blog) {
+  async createBlog(blog: Blog) {
     this.blogs.push(blog)
-    console.log(this.blogs)
     /* Auth.currentSession().then(res => {
       let jwt = res.getAccessToken().getJwtToken()
-      this.http.post('https://hh5ayl145i.execute-api.eu-central-1.amazonaws.com/dev/blogs', blog , {
-        headers: new HttpHeaders({'Authorization': jwt})
-      })
+      const init = {
+        body: blog,
+        headers: {'Authorization': jwt}
+      }
+      API.post(this.apiName, this.path, init)
     }) */
+    const myInit = {
+      body: blog
+    }
+    console.log(myInit)
+    const { message } = await API.post(this.apiName, this.path, myInit)
+    console.log(message)
   }
   
   updateBlogPost(id: number, blog: Blog) {
