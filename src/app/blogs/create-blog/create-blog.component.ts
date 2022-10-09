@@ -33,6 +33,6 @@ export class CreateBlogComponent implements OnInit {
     const { title, body, image } = this.newBlogPost.value
     const blog = new Blog(this.userId, title, body, image)
     this.blogService.createBlog(blog)
-    this.router.navigate(['/'])
+    /* this.router.navigate(['/']) */
   }
 }
