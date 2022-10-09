@@ -1,8 +1,7 @@
 <p>edit-blog works!</p>
-<!-- <input type="text" [(ngModel)]="blog.title" >
-<textarea [(ngModel)]="blog.body" >
-<input type="text" [(ngModel)]="blog.image" > -->
-<input type="text" [(ngModel)]="blog.title" />
-<textarea [(ngModel)]="blog.body"></textarea>
-<input type="text" [(ngModel)]="blog.image" />
-<button (click)="updateBlog()">Update Blog</button>
+<form [formGroup]="editBlogForm">
+  <input type="text" formControlName="title" />
+  <textarea formControlName="body"></textarea>
+  <input type="text" formControlName="image" />
+  <button (click)="updateBlog()">Update Blog</button>
+</form>

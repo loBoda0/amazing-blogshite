@@ -1,8 +1,11 @@
-<a routerLink="/new">Create new blog post</a>
+<a *ngIf="!isLogedIn" routerLink="/login">Login</a>
+<a *ngIf="isLogedIn" routerLink="/new">Create new post</a>
+<!-- <a routerLink="/new">Create new post</a> -->
+<button *ngIf="isLogedIn" (click)="onLogOut()">Log Out</button>
 <a [routerLink]="[i]" *ngFor="let blog of blogs; let i = index">
   <div>
     <p>{{ blog.title }}</p>
     <p>{{ blog.body }}</p>
-    <img *ngIf="blog.name !== ''" [src]="blog.image" alt="{{ blog.image }}" />
+    <img *ngIf="blog.image !== ''" [src]="blog.image" alt="{{ blog.image }}" />
   </div>
 </a>

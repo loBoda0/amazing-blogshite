@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { BlogService } from '../blogs.service';
 import { Blog } from '../blog.model';
+import { AuthService } from 'src/app/user/auth.service';
 
 @Component({
   selector: 'app-blog',
@@ -10,22 +11,39 @@ import { Blog } from '../blog.model';
 })
 export class BlogComponent implements OnInit {
   blog: Blog
-  id: number
+  blogId: number
+  message: string = ''
+  isLogedIn: boolean = false
+  userId: string = ''
 
-  constructor(private blogsService: BlogService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private blogsService: BlogService, private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.route.params
       .subscribe(
         (params: Params) => {
-          this.id = +params['id']
-          this.blog = this.blogsService.getBlogById(this.id)
+          this.blogId = +params['id']
+          this.blog = this.blogsService.getBlogById(this.blogId)
         }
       )
+    this.authService.userRegistered.subscribe(
+      (value) => {
+        this.isLogedIn = value
+      }
+    )
+    this.authService.userId.subscribe(
+      (value) => {
+        this.userId = value
+      }
+    )
+  }
+
+  postComment() {
+    this.blogsService.addComment(this.blogId, this.message, this.userId)
   }
 
   deletePost() {
-    this.blogsService.deleteBlogPost(this.id)
+    this.blogsService.deleteBlogPost(this.blogId)
     this.router.navigate(['/'])
   }
 }

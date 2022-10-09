@@ -1,0 +1,16 @@
+<a routerLink="/login">If you have acc, log in here</a>
+<a routerLink="/">Go Back</a>
+<form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+  <label for="username">Username</label>
+  <input type="text" id="username" formControlName="username" />
+  <label for="password">Password</label>
+  <input type="password" formControlName="password" id="password" />
+  <label for="email">Email</label>
+  <input type="text" formControlName="email" id="email" />
+  <button type="submit">Submit</button>
+  <input
+    type="text"
+    formControlName="verificationCode"
+    *ngIf="formState === 'confirmSignUp'"
+  />
+</form>

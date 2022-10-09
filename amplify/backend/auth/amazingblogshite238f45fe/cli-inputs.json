@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "amazingblogshite58a58809_identitypool_58a58809",
+    "identityPoolName": "amazingblogshite238f45fe_identitypool_238f45fe",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "amazin58a58809",
-    "userPoolName": "amazingblogshite58a58809_userpool_58a58809",
+    "resourceNameTruncated": "amazin238f45fe",
+    "userPoolName": "amazingblogshite238f45fe_userpool_238f45fe",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -31,10 +31,10 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "amazin58a58809_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "amazin238f45fe_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "58a58809",
-    "resourceName": "amazingblogshite58a58809",
+    "sharedId": "238f45fe",
+    "resourceName": "amazingblogshite238f45fe",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "default",
     "userPoolGroupList": [],

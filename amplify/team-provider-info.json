@@ -1,19 +1,19 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-amazingblogshite-dev-183036-authRole",
-      "UnauthRoleArn": "arn:aws:iam::930698342647:role/amplify-amazingblogshite-dev-183036-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::930698342647:role/amplify-amazingblogshite-dev-183036-authRole",
+      "AuthRoleName": "amplify-amazingblogshite-dev-93644-authRole",
+      "UnauthRoleArn": "arn:aws:iam::930698342647:role/amplify-amazingblogshite-dev-93644-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::930698342647:role/amplify-amazingblogshite-dev-93644-authRole",
       "Region": "eu-central-1",
-      "DeploymentBucketName": "amplify-amazingblogshite-dev-183036-deployment",
-      "UnauthRoleName": "amplify-amazingblogshite-dev-183036-unauthRole",
-      "StackName": "amplify-amazingblogshite-dev-183036",
-      "StackId": "arn:aws:cloudformation:eu-central-1:930698342647:stack/amplify-amazingblogshite-dev-183036/0dca27d0-39cb-11ed-b352-0260658cda7e",
-      "AmplifyAppId": "dxonbh22irugq"
+      "DeploymentBucketName": "amplify-amazingblogshite-dev-93644-deployment",
+      "UnauthRoleName": "amplify-amazingblogshite-dev-93644-unauthRole",
+      "StackName": "amplify-amazingblogshite-dev-93644",
+      "StackId": "arn:aws:cloudformation:eu-central-1:930698342647:stack/amplify-amazingblogshite-dev-93644/77c1b6c0-4480-11ed-a131-0239f7eb1eaa",
+      "AmplifyAppId": "d31wdmpo6ncoo5"
     },
     "categories": {
       "auth": {
-        "amazingblogshite58a58809": {}
+        "amazingblogshite238f45fe": {}
       }
     }
   }
