@@ -1,6 +1,6 @@
 export type AmplifyDependentResourcesAttributes = {
     "auth": {
-        "amazingblogshite6d488b46": {
+        "amazingblogshitec9b2d58c": {
             "IdentityPoolId": "string",
             "IdentityPoolName": "string",
             "UserPoolId": "string",
@@ -8,6 +8,9 @@ export type AmplifyDependentResourcesAttributes = {
             "UserPoolName": "string",
             "AppClientIDWeb": "string",
             "AppClientID": "string"
+        },
+        "userPoolGroups": {
+            "blogsPoolGroupRole": "string"
         }
     },
     "storage": {

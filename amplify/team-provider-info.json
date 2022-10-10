@@ -15,12 +15,18 @@
     "categories": {
       "auth": {
         "true": {},
-        "amazingblogshite6d488b46": {}
+        "amazingblogshitec9b2d58c": {}
       },
       "function": {
         "blogsLambda": {
           "deploymentBucketName": "amplify-amazingblogshite-dev-93644-deployment",
-          "s3Key": "amplify-builds/blogsLambda-6c6d42306e544b77594b-build.zip"
+          "s3Key": "amplify-builds/blogsLambda-52316d494e44382f506b-build.zip"
+        }
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d31wdmpo6ncoo5",
+          "type": "manual"
         }
       }
     }

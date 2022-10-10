@@ -1,6 +1,6 @@
 {
   "auth": {
-    "amazingblogshite6d488b46": {
+    "amazingblogshitec9b2d58c": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -23,6 +23,22 @@
           "EMAIL"
         ]
       }
+    },
+    "userPoolGroups": {
+      "service": "Cognito-UserPool-Groups",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "amazingblogshitec9b2d58c",
+          "attributes": [
+            "UserPoolId",
+            "AppClientIDWeb",
+            "AppClientID",
+            "IdentityPoolId"
+          ]
+        }
+      ]
     }
   },
   "storage": {
@@ -63,6 +79,13 @@
           ]
         }
       ]
+    }
+  },
+  "hosting": {
+    "amplifyhosting": {
+      "service": "amplifyhosting",
+      "providerPlugin": "awscloudformation",
+      "type": "manual"
     }
   }
 }
