@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "amazingblogshitec9b2d58c_identitypool_c9b2d58c",
+    "identityPoolName": "amazingblogshite576baaa4_identitypool_576baaa4",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "amazinc9b2d58c",
-    "userPoolName": "amazingblogshitec9b2d58c_userpool_c9b2d58c",
+    "resourceNameTruncated": "amazin576baaa4",
+    "userPoolName": "amazingblogshite576baaa4_userpool_576baaa4",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -31,31 +31,15 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "amazinc9b2d58c_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "amazin576baaa4_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "c9b2d58c",
-    "resourceName": "amazingblogshitec9b2d58c",
+    "sharedId": "576baaa4",
+    "resourceName": "amazingblogshite576baaa4",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "default",
-    "userPoolGroupList": [
-      "blogsPool"
-    ],
+    "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
-    "useEnabledMfas": true,
-    "authRoleArn": {
-      "Fn::GetAtt": [
-        "AuthRole",
-        "Arn"
-      ]
-    },
-    "unauthRoleArn": {
-      "Fn::GetAtt": [
-        "UnauthRole",
-        "Arn"
-      ]
-    },
-    "breakCircularDependency": true,
-    "dependsOn": []
+    "useEnabledMfas": true
   }
 }

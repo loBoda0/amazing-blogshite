@@ -6,5 +6,6 @@ export class Blog {
 }
 
 export class Comment {
+  public id: string = v4()
   constructor(public userId: string, public commentBody: string/* , public replys: Comment[] = [] */) {}
 }

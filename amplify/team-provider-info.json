@@ -1,31 +1,23 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-amazingblogshite-dev-93644-authRole",
-      "UnauthRoleArn": "arn:aws:iam::930698342647:role/amplify-amazingblogshite-dev-93644-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::930698342647:role/amplify-amazingblogshite-dev-93644-authRole",
+      "AuthRoleName": "amplify-amazingblogshite-dev-192428-authRole",
+      "UnauthRoleArn": "arn:aws:iam::930698342647:role/amplify-amazingblogshite-dev-192428-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::930698342647:role/amplify-amazingblogshite-dev-192428-authRole",
       "Region": "eu-central-1",
-      "DeploymentBucketName": "amplify-amazingblogshite-dev-93644-deployment",
-      "UnauthRoleName": "amplify-amazingblogshite-dev-93644-unauthRole",
-      "StackName": "amplify-amazingblogshite-dev-93644",
-      "StackId": "arn:aws:cloudformation:eu-central-1:930698342647:stack/amplify-amazingblogshite-dev-93644/77c1b6c0-4480-11ed-a131-0239f7eb1eaa",
-      "AmplifyAppId": "d31wdmpo6ncoo5",
-      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-amazingblogshite-dev-93644-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
+      "DeploymentBucketName": "amplify-amazingblogshite-dev-192428-deployment",
+      "UnauthRoleName": "amplify-amazingblogshite-dev-192428-unauthRole",
+      "StackName": "amplify-amazingblogshite-dev-192428",
+      "StackId": "arn:aws:cloudformation:eu-central-1:930698342647:stack/amplify-amazingblogshite-dev-192428/6605cbd0-48c0-11ed-8b0b-06da7ff4bf66",
+      "AmplifyAppId": "d35ilhn27aa6kz"
     },
     "categories": {
       "auth": {
-        "true": {},
-        "amazingblogshitec9b2d58c": {}
-      },
-      "function": {
-        "blogsLambda": {
-          "deploymentBucketName": "amplify-amazingblogshite-dev-93644-deployment",
-          "s3Key": "amplify-builds/blogsLambda-52316d494e44382f506b-build.zip"
-        }
+        "amazingblogshite576baaa4": {}
       },
       "hosting": {
         "amplifyhosting": {
-          "appId": "d31wdmpo6ncoo5",
+          "appId": "d35ilhn27aa6kz",
           "type": "manual"
         }
       }
