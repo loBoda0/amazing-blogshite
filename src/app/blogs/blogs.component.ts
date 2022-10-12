@@ -10,6 +10,7 @@ import { BlogService } from './blogs.service';
 })
 export class BlogsComponent implements OnInit {
   blogs: Blog[]
+  /* blogs: Promise<Blog[]> */
   isLogedIn: boolean = false
 
   constructor(private blogsService: BlogService, private authService: AuthService) { }

@@ -1,55 +1,61 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Blog, Comment } from "./blog.model"
-import { Auth, API } from "aws-amplify"
+import { API } from "aws-amplify"
+import { BehaviorSubject } from "rxjs"
 
 
 @Injectable()
 export class BlogService {
-  constructor(private http: HttpClient) {}
   apiName = 'blogsApi'
   path = '/blogs'
+  /* blogs = new BehaviorSubject<Blog[]>([]) */
 
   private blogs: Blog[] = [
-    new Blog("6971ae53-074c-4f08-a0e9-28672d10746a", "Tern, white-winged",
+    new Blog("64552671-d0ae-4f04-9479-1190e737c1ee", "Tern, white-winged",
       "Person on outside of car injured in collision with two- or three-wheeled motor vehicle in traffic accident, subsequent encounter",
       "https://picsum.photos/200"
     ),
-    new Blog("6971ae53-074c-4f08-a0e9-28672d10746a", "Monitor, water",
+    new Blog("64552671-d0ae-4f04-9479-1190e737c1ee", "Monitor, water",
       "Unspecified traumatic spondylolisthesis of third cervical vertebra",
       "https://picsum.photos/200"
     ),
-      new Blog("6971ae53-074c-4f08-a0e9-28672d10746a", "Woylie",
+      new Blog("64552671-d0ae-4f04-9479-1190e737c1ee", "Woylie",
       "Complete lesion at C1 level of cervical spinal cord",
     ),
-    new Blog("6971ae53-074c-4f08-a0e9-28672d10746a", "Tortoise, galapagos",
+    new Blog("64552671-d0ae-4f04-9479-1190e737c1ee", "Tortoise, galapagos",
       "Fracture of unspecified part of neck of femur",
       "https://picsum.photos/200"
     ),
-    new Blog("6971ae53-074c-4f08-a0e9-28672d10746a", "Sarus crane",
+    new Blog("64552671-d0ae-4f04-9479-1190e737c1ee", "Sarus crane",
       "Acute rheumatic pericarditis"
     ),
-    new Blog("619cfb57-58ba-42a4-84a2-3337b1352f51", "Vulture, white-rumped",
+    new Blog("5e7b9ab6-7d56-41e0-a9bb-fd077b669117", "Vulture, white-rumped",
       "Furuncle of umbilicus",
       "https://picsum.photos/200"
     ),
-    new Blog("619cfb57-58ba-42a4-84a2-3337b1352f51", "White-tailed deer",
+    new Blog("5e7b9ab6-7d56-41e0-a9bb-fd077b669117", "White-tailed deer",
       "Insect bite (nonvenomous) of right ear, initial encounter",
       "https://picsum.photos/200"
     ),
-    new Blog("619cfb57-58ba-42a4-84a2-3337b1352f51", "Skunk, striped",
+    new Blog("5e7b9ab6-7d56-41e0-a9bb-fd077b669117", "Skunk, striped",
       "Corrosion of first degree of unspecified axilla, subsequent encounter",
       "https://picsum.photos/200"
     ),
-    new Blog("619cfb57-58ba-42a4-84a2-3337b1352f51", "Francolin, swainson's",
+    new Blog("5e7b9ab6-7d56-41e0-a9bb-fd077b669117", "Francolin, swainson's",
       "Toxic effect of venom of ants, accidental (unintentional), initial encounter"
     ),
-    new Blog("619cfb57-58ba-42a4-84a2-3337b1352f51", "Bahama pintail",
+    new Blog("5e7b9ab6-7d56-41e0-a9bb-fd077b669117", "Bahama pintail",
       "Multiple fractures of ribs",
       "https://picsum.photos/200"
     )
   ]
   
+  /* async getBlogs() {
+    const data = await API.get(this.apiName, this.path, {})
+    console.log(data)
+    return this.blogs
+  } */
+
   getBlogs() {
     return this.blogs
   }
@@ -60,20 +66,11 @@ export class BlogService {
 
   async createBlog(blog: Blog) {
     this.blogs.push(blog)
-    /* Auth.currentSession().then(res => {
-      let jwt = res.getAccessToken().getJwtToken()
-      const init = {
-        body: blog,
-        headers: {'Authorization': jwt}
-      }
-      API.post(this.apiName, this.path, init)
-    }) */
     const myInit = {
       body: blog
     }
     console.log(myInit)
-    const { message } = await API.post(this.apiName, this.path, myInit)
-    console.log(message)
+    await API.post(this.apiName, this.path, myInit)
   }
   
   updateBlogPost(id: number, blog: Blog) {
