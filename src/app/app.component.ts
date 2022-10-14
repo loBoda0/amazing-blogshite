@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BlogService } from './blogs/blogs.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'amazing-blogshite';
+
+  constructor(private blogsService: BlogService) {
+    
+    this.blogsService.setBlogs()
+  }
 }

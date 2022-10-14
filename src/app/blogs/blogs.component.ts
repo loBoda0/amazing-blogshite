@@ -18,7 +18,6 @@ export class BlogsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.blogsService.setBlogs()
     this.blogsService.updatedBlogs.subscribe((blogs) => {
       this.blogs.push(...blogs)
     })

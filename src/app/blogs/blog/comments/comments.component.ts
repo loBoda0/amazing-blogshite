@@ -11,8 +11,8 @@ import { BlogService } from '../../blogs.service';
 export class CommentsComponent implements OnInit {
   @Input() comment: Comment
   @Input() userId: string
-  @Input() blogId: number
-  @Input('commentIdx') idx: number
+  @Input() blogId: string
+  @Input('commentIdx') idx: string
   updateCommentForm: FormGroup
   isEditMode: boolean = false
 
@@ -31,7 +31,6 @@ export class CommentsComponent implements OnInit {
   }
   
   deleteComment() {
-    console.log(this.idx)
     this.blogsService.deleteComment(this.blogId, this.idx)
   }
   

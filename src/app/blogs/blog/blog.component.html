@@ -14,9 +14,9 @@
 </div>
 <p>Comments</p>
 <app-comments
-  *ngFor="let comment of blog.comments; let i = index"
+  *ngFor="let comment of blog.comments"
   [comment]="comment"
   [userId]="userId"
   [blogId]="blogId"
-  [commentIdx]="i"
+  [commentIdx]="comment.id"
 ></app-comments>

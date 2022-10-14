@@ -8,67 +8,6 @@ export class BlogService {
   apiName = 'blogsApi'
   path = '/blogs'
   updatedBlogs = new Subject<Blog[]>()
-  /* blogs = new BehaviorSubject<Blog[]>([]) */
-
-  /* private blogs: Blog[] = [
-    new Blog(
-      '64552671-d0ae-4f04-9479-1190e737c1ee',
-      'Tern, white-winged',
-      'Person on outside of car injured in collision with two- or three-wheeled motor vehicle in traffic accident, subsequent encounter',
-      'https://picsum.photos/200',
-    ),
-    new Blog(
-      '64552671-d0ae-4f04-9479-1190e737c1ee',
-      'Monitor, water',
-      'Unspecified traumatic spondylolisthesis of third cervical vertebra',
-      'https://picsum.photos/200',
-    ),
-    new Blog(
-      '64552671-d0ae-4f04-9479-1190e737c1ee',
-      'Woylie',
-      'Complete lesion at C1 level of cervical spinal cord',
-    ),
-    new Blog(
-      '64552671-d0ae-4f04-9479-1190e737c1ee',
-      'Tortoise, galapagos',
-      'Fracture of unspecified part of neck of femur',
-      'https://picsum.photos/200',
-    ),
-    new Blog(
-      '64552671-d0ae-4f04-9479-1190e737c1ee',
-      'Sarus crane',
-      'Acute rheumatic pericarditis',
-    ),
-    new Blog(
-      '5e7b9ab6-7d56-41e0-a9bb-fd077b669117',
-      'Vulture, white-rumped',
-      'Furuncle of umbilicus',
-      'https://picsum.photos/200',
-    ),
-    new Blog(
-      '5e7b9ab6-7d56-41e0-a9bb-fd077b669117',
-      'White-tailed deer',
-      'Insect bite (nonvenomous) of right ear, initial encounter',
-      'https://picsum.photos/200',
-    ),
-    new Blog(
-      '5e7b9ab6-7d56-41e0-a9bb-fd077b669117',
-      'Skunk, striped',
-      'Corrosion of first degree of unspecified axilla, subsequent encounter',
-      'https://picsum.photos/200',
-    ),
-    new Blog(
-      '5e7b9ab6-7d56-41e0-a9bb-fd077b669117',
-      "Francolin, swainson's",
-      'Toxic effect of venom of ants, accidental (unintentional), initial encounter',
-    ),
-    new Blog(
-      '5e7b9ab6-7d56-41e0-a9bb-fd077b669117',
-      'Bahama pintail',
-      'Multiple fractures of ribs',
-      'https://picsum.photos/200',
-    ),
-  ] */
 
   blogs: Blog[] = []
 
@@ -88,38 +27,65 @@ export class BlogService {
 
   async createBlog(blog: Blog) {
     this.blogs.push(blog)
-    const myInit = {
-      body: blog,
-    }
-    console.log(myInit)
-    await API.post(this.apiName, this.path, myInit)
+    this.createOrUpdateBlogPost(blog)
   }
 
-  updateBlogPost(id: string, updatedBlog: Blog) {
-    const check = this.blogs.map((blog) => {
+  async updateBlogPost(id: string, updatedBlog: Blog) {
+    this.blogs.map((blog) => {
       if (blog.id === id) {
         return updatedBlog
       }
       return blog
     })
-    // TODO: update post in backend
+    this.createOrUpdateBlogPost(updatedBlog)
   }
 
-  deleteBlogPost(id: string) {
-    console.log('Delete blog')
-    /* this.blogs.splice(id, 1) */
+  async deleteBlogPost(id: string) {
+    const myInit = {
+      body: id,
+    }
+    try {
+      await API.del(this.apiName, this.path, myInit)
+    } catch (err) {
+      console.error(err);
+      
+    }
   }
 
   addComment(id: string, body: string, userId: string) {
     const comment = new Comment(userId, body)
-    this.blogs[id].comments.push(comment)
+    let blogIdx = this.blogs.findIndex(blog => blog.id === id)
+    this.blogs.map((blog) => {
+      if (blog.id === id) {
+        return blog.comments.push(comment)
+      }
+      return blog
+    })
+    this.createOrUpdateBlogPost(this.blogs[blogIdx])
   }
 
-  updateComment(postId: number, commentId: number, textBody: string) {
-    this.blogs[postId].comments[commentId].commentBody = textBody
+  updateComment(postId: string, commentId: string, textBody: string) {
+    let blogIdx = this.blogs.findIndex(blog => blog.id === postId)
+    this.blogs[blogIdx].comments.map(comment => {
+      if (comment.id === commentId) {
+        return comment.commentBody = textBody
+      }
+      return comment
+    })
+    this.createOrUpdateBlogPost(this.blogs[blogIdx])
   }
 
-  deleteComment(postId: number, commentId: number) {
-    this.blogs[postId].comments.splice(commentId, 1)
+  deleteComment(postId: string, commentId: string) {
+    let blogIdx = this.blogs.findIndex(blog => blog.id === postId)
+    let commentIdx = this.blogs[blogIdx].comments.findIndex(comment => comment.id === commentId)
+    this.blogs[blogIdx].comments.splice(commentIdx, 1)
+    this.createOrUpdateBlogPost(this.blogs[blogIdx])
+  }
+
+  async createOrUpdateBlogPost(blog: Blog) {
+    const myInit = {
+      body: blog,
+    }
+    await API.post(this.apiName, this.path, myInit)
   }
 }
