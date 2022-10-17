@@ -1,18 +1,44 @@
-<p [hidden]="isEditMode">{{ comment.commentBody }}</p>
-<form
-  [hidden]="!isEditMode"
-  [formGroup]="updateCommentForm"
-  (ngSubmit)="updateComment()"
->
-  <textarea name="" cols="30" rows="1" formControlName="comment"></textarea>
-  <button *ngIf="userId === comment.userId" type="submit">Save Comment</button>
-  <button (click)="toggleEditMode()" type="button">Cancel</button>
-</form>
-<div [hidden]="isEditMode">
-  <button *ngIf="userId === comment.userId" (click)="toggleEditMode()">
-    Update Comment
-  </button>
-  <button *ngIf="userId === comment.userId" (click)="deleteComment()">
-    Delete Comment
+<div>
+  <p [hidden]="isEditMode">{{ comment.username }}: {{ comment.commentBody }}</p>
+  <form
+    [hidden]="!isEditMode"
+    [formGroup]="updateCommentForm"
+    (ngSubmit)="updateComment()"
+  >
+    <textarea cols="30" rows="1" formControlName="comment"></textarea>
+    <button *ngIf="userId === comment.userId" type="submit">
+      Save Comment
+    </button>
+    <button (click)="toggleEditMode()" type="button">Cancel</button>
+  </form>
+
+  <div [hidden]="isEditMode">
+    <button *ngIf="userId === comment.userId" (click)="toggleEditMode()">
+      Update Comment
+    </button>
+    <button *ngIf="userId === comment.userId" (click)="deleteComment()">
+      Delete Comment
+    </button>
+  </div>
+</div>
+<button [disabled]="!userId" (click)="updateVote(1)">Upvote</button>
+<button [disabled]="!userId" (click)="updateVote(-1)">Downvote</button>
+{{ voteCount }}
+<div *ngFor="let reply of comment.replies">
+  <p>{{ reply.username }} Replied: {{ reply.commentBody }}</p>
+  <button *ngIf="userId === reply.userId" (click)="deleteReply(reply.id)">
+    Delete Reply
   </button>
 </div>
+<form *ngIf="isReply" [formGroup]="postReplyForm" (ngSubmit)="postReply()">
+  <textarea cols="30" rows="1" formControlName="reply"></textarea>
+  <button [hidden]="!userId" *ngIf="isReply" type="submit">Post reply</button>
+</form>
+<button
+  [hidden]="!userId"
+  *ngIf="!isReply"
+  (click)="toggleReply()"
+  type="button"
+>
+  Add reply
+</button>

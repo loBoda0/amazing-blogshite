@@ -7,7 +7,7 @@
 <p>{{ blog.body }}</p>
 <img [src]="blog.image" alt="" />
 <br />
-<div *ngIf="userId !== ''">
+<div *ngIf="userId">
   <label for="Comment">Comment on post:</label>
   <textarea type="text" [(ngModel)]="message"></textarea>
   <button (click)="postComment()">Post comment</button>
@@ -16,7 +16,6 @@
 <app-comments
   *ngFor="let comment of blog.comments"
   [comment]="comment"
-  [userId]="userId"
   [blogId]="blogId"
   [commentIdx]="comment.id"
 ></app-comments>

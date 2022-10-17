@@ -88,7 +88,11 @@ app.get(path, function (req, res) {
  * HTTP Delete method to remove item *
  ********************************/
 
-app.del(path, function (req, res) {
+app.delete(path, function (req, res) {
+  console.log('body: ', req.body);
+});
+
+/* app.delete(path, function (req, res) {
   console.log(req)
   var removeItemParams = {
     TableName: tableName,
@@ -105,7 +109,7 @@ app.del(path, function (req, res) {
       res.json({ url: req.url, data: data });
     }
   });
-})
+}) */
 
 /********************************
  * HTTP Get method for list objects *

@@ -52,8 +52,8 @@ export class BlogService {
     }
   }
 
-  addComment(id: string, body: string, userId: string) {
-    const comment = new Comment(userId, body)
+  addComment(id: string, username: string, body: string, userId: string) {
+    const comment = new Comment(userId, username, body)
     let blogIdx = this.blogs.findIndex(blog => blog.id === id)
     this.blogs.map((blog) => {
       if (blog.id === id) {
@@ -81,7 +81,43 @@ export class BlogService {
     this.blogs[blogIdx].comments.splice(commentIdx, 1)
     this.createOrUpdateBlogPost(this.blogs[blogIdx])
   }
-
+  
+  addReply(postId: string, userId: string, username: string, commentId: string, body: string) {
+    const reply = new Comment(userId, username, body)
+    let blogIdx = this.blogs.findIndex(blog => blog.id === postId)
+    let commentIdx = this.blogs[blogIdx].comments.findIndex(comment => comment.id === commentId)
+    this.blogs[blogIdx].comments[commentIdx].replies.push(reply)
+    this.createOrUpdateBlogPost(this.blogs[blogIdx])
+  }
+  
+  removeReply(postId: string, commentId: string, replyId: string) {
+    let blogIdx = this.blogs.findIndex(blog => blog.id === postId)
+    let commentIdx = this.blogs[blogIdx].comments.findIndex(comment => comment.id === commentId)
+    let replyIdx = this.blogs[blogIdx].comments[commentIdx].replies.findIndex(reply => reply.id === replyId)
+    this.blogs[blogIdx].comments[commentIdx].replies.splice(replyIdx, 1)
+    this.createOrUpdateBlogPost(this.blogs[blogIdx])
+  }
+  
+  setVotes(postId: string, commentId: string, userId: string, vote: number) {
+    let blogIdx = this.blogs.findIndex(blog => blog.id === postId)
+    let commentIdx = this.blogs[blogIdx].comments.findIndex(comment => comment.id === commentId)
+    if (this.blogs[blogIdx].comments[commentIdx].voting[userId] !== undefined) {
+      if (this.blogs[blogIdx].comments[commentIdx].voting[userId] == vote) {
+        this.blogs[blogIdx].comments[commentIdx].voting[userId] = 0
+        console.log('vote is same as previous')
+        delete this.blogs[blogIdx].comments[commentIdx].voting[userId]
+      }
+      else 
+      this.blogs[blogIdx].comments[commentIdx].voting[userId] = vote
+    } else {
+      this.blogs[blogIdx].comments[commentIdx].voting[userId] = vote
+    }
+    let values: number[] = Object.values(this.blogs[blogIdx].comments[commentIdx].voting)
+    return values.reduce((accumulator, value) => {
+      return accumulator + value;
+    }, 0);
+  }
+  
   async createOrUpdateBlogPost(blog: Blog) {
     const myInit = {
       body: blog,
