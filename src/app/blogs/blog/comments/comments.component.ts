@@ -12,10 +12,10 @@ import { BlogService } from '../../blogs.service';
 export class CommentsComponent implements OnInit {
   @Input() comment: Comment
   @Input() blogId: string
-  @Input('commentIdx') idx: string
-  userId: string = null
+  @Input() commentId: string
   updateCommentForm: FormGroup
   postReplyForm: FormGroup
+  userId: string = null
   isEditMode: boolean = false
   isReply: boolean = false
   username: string = null
@@ -37,24 +37,19 @@ export class CommentsComponent implements OnInit {
       this.username = value
     })
     let values: number[] = Object.values(this.comment.voting)
-    /* let sum = 0
-    this.comment.voting.forEach(element => {
-      
-    });*/
     this.voteCount = values.reduce((accumulator, value) => {
       return accumulator + value;
     }, 0);
-    /* this.voteCount = Object.values(this.comment.voting).reduce((sum, current) => sum + current) */
   }
   
   updateComment() {
     const body = this.updateCommentForm.value.comment
-    this.blogsService.updateComment(this.blogId, this.idx, body)
+    this.blogsService.updateComment(this.blogId, this.commentId, body)
     this.toggleEditMode()
   }
   
   deleteComment() {
-    this.blogsService.deleteComment(this.blogId, this.idx)
+    this.blogsService.deleteComment(this.blogId, this.commentId)
   }
   
   toggleEditMode() {
@@ -62,11 +57,7 @@ export class CommentsComponent implements OnInit {
   }
 
   postReply() {
-    this.blogsService.addReply(this.blogId, this.userId, this.username, this.idx, this.postReplyForm.value.reply)
-  }
-
-  deleteReply(replyId) {
-    this.blogsService.removeReply(this.blogId, this.idx, replyId)
+    this.blogsService.addReply(this.blogId, this.userId, this.username, this.commentId, this.postReplyForm.value.reply)
   }
 
   toggleReply() {
@@ -74,6 +65,6 @@ export class CommentsComponent implements OnInit {
   }
 
   updateVote(vote) {
-    this.voteCount = this.blogsService.setVotes(this.blogId, this.idx, this.userId, vote)
+    this.voteCount = this.blogsService.setVotes(this.blogId, this.commentId, this.userId, vote)
   }
 }

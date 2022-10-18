@@ -85,33 +85,6 @@ app.get(path, function (req, res) {
 });
 
 /********************************
- * HTTP Delete method to remove item *
- ********************************/
-
-app.delete(path, function (req, res) {
-  console.log('body: ', req.body);
-});
-
-/* app.delete(path, function (req, res) {
-  console.log(req)
-  var removeItemParams = {
-    TableName: tableName,
-    Key: {
-      id: req.body
-    }
-  }
-
-  dynamodb.delete(removeItemParams, (err, data) => {
-    if (err) {
-      res.statusCode = 500;
-      res.json({ error: err, url: req.url });
-    } else {
-      res.json({ url: req.url, data: data });
-    }
-  });
-}) */
-
-/********************************
  * HTTP Get method for list objects *
  ********************************/
 
@@ -198,8 +171,22 @@ app.get(path + '/object' + hashKeyPath + sortKeyPath, function (req, res) {
 *************************************/
 
 app.put(path, function (req, res) {
+  let deleteItemParams = {
+    TableName: tableName,
+    Key: {
+      id: req.body.id
+    }
+  }
 
-  if (userIdPresent) {
+  dynamodb.delete(deleteItemParams, function (err, data) {
+    if (err) {
+      console.error("Unable to delete item. Error JSON:", JSON.stringify(err, null, 2));
+    } else {
+      console.log("DeleteItem succeeded:", JSON.stringify(data, null, 2));
+    }
+  })
+
+  /* if (userIdPresent) {
     req.body['userId'] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
   }
 
@@ -214,7 +201,7 @@ app.put(path, function (req, res) {
     } else {
       res.json({ success: 'put call succeed!', url: req.url, data: data })
     }
-  });
+  }); */
 });
 
 /************************************

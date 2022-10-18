@@ -1,0 +1,26 @@
+<div>
+  <p [hidden]="isEditMode">
+    {{ reply.username }} replied: {{ reply.commentBody }}
+  </p>
+  <form
+    [hidden]="!isEditMode"
+    [formGroup]="updateReplyForm"
+    (ngSubmit)="updateReply()"
+  >
+    <textarea cols="30" rows="1" formControlName="reply"></textarea>
+    <button *ngIf="userId === reply.userId" type="submit">Save reply</button>
+    <button (click)="toggleEditMode()" type="button">Cancel</button>
+  </form>
+
+  <div [hidden]="isEditMode">
+    <button *ngIf="userId === reply.userId" (click)="toggleEditMode()">
+      Update reply
+    </button>
+    <button *ngIf="userId === reply.userId" (click)="deleteReply(reply.id)">
+      Delete reply
+    </button>
+  </div>
+</div>
+<button [disabled]="!userId" (click)="updateVote(1)">Upvote</button>
+<button [disabled]="!userId" (click)="updateVote(-1)">Downvote</button>
+{{ voteCount }}

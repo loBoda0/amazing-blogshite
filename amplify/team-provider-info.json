@@ -26,7 +26,7 @@
       "function": {
         "blogsLambda": {
           "deploymentBucketName": "amplify-amazingblogshite-dev-192428-deployment",
-          "s3Key": "amplify-builds/blogsLambda-7534325a635939445859-build.zip"
+          "s3Key": "amplify-builds/blogsLambda-4e746a66474a4c704f67-build.zip"
         }
       }
     }

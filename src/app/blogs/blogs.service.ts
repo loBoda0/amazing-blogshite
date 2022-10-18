@@ -40,15 +40,17 @@ export class BlogService {
     this.createOrUpdateBlogPost(updatedBlog)
   }
 
-  async deleteBlogPost(id: string) {
+  deleteBlogPost(id: string) {
+    let blogIdx = this.blogs.findIndex(blog => blog.id === id)
     const myInit = {
-      body: id,
+      body: this.blogs[blogIdx],
     }
     try {
-      await API.del(this.apiName, this.path, myInit)
+      API.put(this.apiName, this.path, myInit)
+      delete this.blogs[blogIdx]
+      this.updatedBlogs.next(this.blogs)
     } catch (err) {
       console.error(err);
-      
     }
   }
 
@@ -89,6 +91,14 @@ export class BlogService {
     this.blogs[blogIdx].comments[commentIdx].replies.push(reply)
     this.createOrUpdateBlogPost(this.blogs[blogIdx])
   }
+
+  updateReply(postId: string, commentId: string, replyId: string, body: string) {
+    let blogIdx = this.blogs.findIndex(blog => blog.id === postId)
+    let commentIdx = this.blogs[blogIdx].comments.findIndex(comment => comment.id === commentId)
+    let replyIdx = this.blogs[blogIdx].comments[commentIdx].replies.findIndex(reply => reply.id === replyId)
+    this.blogs[blogIdx].comments[commentIdx].replies[replyIdx].commentBody = body
+    this.createOrUpdateBlogPost(this.blogs[blogIdx])
+  }
   
   removeReply(postId: string, commentId: string, replyId: string) {
     let blogIdx = this.blogs.findIndex(blog => blog.id === postId)
@@ -103,8 +113,6 @@ export class BlogService {
     let commentIdx = this.blogs[blogIdx].comments.findIndex(comment => comment.id === commentId)
     if (this.blogs[blogIdx].comments[commentIdx].voting[userId] !== undefined) {
       if (this.blogs[blogIdx].comments[commentIdx].voting[userId] == vote) {
-        this.blogs[blogIdx].comments[commentIdx].voting[userId] = 0
-        console.log('vote is same as previous')
         delete this.blogs[blogIdx].comments[commentIdx].voting[userId]
       }
       else 
@@ -112,7 +120,28 @@ export class BlogService {
     } else {
       this.blogs[blogIdx].comments[commentIdx].voting[userId] = vote
     }
+    this.createOrUpdateBlogPost(this.blogs[blogIdx])
     let values: number[] = Object.values(this.blogs[blogIdx].comments[commentIdx].voting)
+    return values.reduce((accumulator, value) => {
+      return accumulator + value;
+    }, 0);
+  }
+
+  setReplyVotes(postId: string, commentId: string, replyId: string, userId: string, vote: number) {
+    let blogIdx = this.blogs.findIndex(blog => blog.id === postId)
+    let commentIdx = this.blogs[blogIdx].comments.findIndex(comment => comment.id === commentId)
+    let replyIdx = this.blogs[blogIdx].comments[commentIdx].replies.findIndex(reply => reply.id === replyId)
+    if (this.blogs[blogIdx].comments[commentIdx].replies[replyIdx].voting[userId] !== undefined) {
+      if (this.blogs[blogIdx].comments[commentIdx].replies[replyIdx].voting[userId] == vote) {
+        delete this.blogs[blogIdx].comments[commentIdx].replies[replyIdx].voting[userId]
+      }
+      else 
+      this.blogs[blogIdx].comments[commentIdx].replies[replyIdx].voting[userId] = vote
+    } else {
+      this.blogs[blogIdx].comments[commentIdx].replies[replyIdx].voting[userId] = vote
+    }
+    this.createOrUpdateBlogPost(this.blogs[blogIdx])
+    let values: number[] = Object.values(this.blogs[blogIdx].comments[commentIdx].replies[replyIdx].voting)
     return values.reduce((accumulator, value) => {
       return accumulator + value;
     }, 0);
