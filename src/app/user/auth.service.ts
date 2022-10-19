@@ -1,13 +1,12 @@
 import { Auth } from "aws-amplify"
 import { BehaviorSubject } from "rxjs"
-import { CognitoUser } from '@aws-amplify/auth'
 
 export class AuthService {
   userRegistered = new BehaviorSubject(false)
   formState = new BehaviorSubject("signUp")
   userId = new BehaviorSubject(null)
   username = new BehaviorSubject("")
-
+  
   async signUp(username: string, password: string, email: string) {
     try {
       await Auth.signUp({
@@ -41,7 +40,8 @@ export class AuthService {
       this.userRegistered.next(true)
       this.userId.next(attributes.sub)
       this.username.next(username)
-      console.log(this.userId)
+      let userToStorage: {username: string, password: string} = {username, password}
+      localStorage.setItem('userCredentials', JSON.stringify(userToStorage))
     } catch (err) {
       console.log(err)
     }
@@ -54,6 +54,7 @@ export class AuthService {
       this.userId.next('')
       this.username.next('')
       this.userRegistered.next(false)
+      localStorage.clear()
     } catch (error) {
         console.log('error signing out: ', error);
     }

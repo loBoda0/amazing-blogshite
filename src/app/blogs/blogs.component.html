@@ -1,7 +1,7 @@
-<a *ngIf="!isLogedIn" routerLink="/login">Login</a>
-<a *ngIf="isLogedIn" routerLink="/new">Create new post</a>
+<a *ngIf="!isLoggedIn" routerLink="/login">Login</a>
+<a *ngIf="isLoggedIn" routerLink="/new">Create new post</a>
 <!-- <a routerLink="/new">Create new post</a> -->
-<button *ngIf="isLogedIn" (click)="onLogOut()">Log Out</button>
+<button *ngIf="isLoggedIn" (click)="onLogOut()">Log Out</button>
 <a *ngFor="let blog of blogs; let i = index" [routerLink]="blog.id">
   <div>
     <p>{{ blog.title }}</p>

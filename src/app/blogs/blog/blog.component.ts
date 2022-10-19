@@ -13,7 +13,7 @@ export class BlogComponent implements OnInit {
   blog: Blog
   blogId: string
   message: string = ''
-  isLogedIn: boolean = false
+  /* isLoggedIn: boolean = false */
   userId: string = null
   username: string = null
 
@@ -29,9 +29,9 @@ export class BlogComponent implements OnInit {
       this.blogId = params['id']
       this.blog = this.blogsService.getBlogById(this.blogId)
     })
-    this.authService.userRegistered.subscribe((value) => {
-      this.isLogedIn = value
-    })
+    /* this.authService.userRegistered.subscribe((value) => {
+      this.isLoggedIn = value
+    }) */
     this.authService.userId.subscribe((value) => {
       this.userId = value
     })

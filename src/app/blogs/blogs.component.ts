@@ -10,7 +10,7 @@ import { BlogService } from './blogs.service'
 })
 export class BlogsComponent implements OnInit {
   blogs: Blog[] = []
-  isLogedIn: boolean = false
+  isLoggedIn: boolean = false
 
   constructor(
     private blogsService: BlogService,
@@ -22,7 +22,7 @@ export class BlogsComponent implements OnInit {
       this.blogs.push(...blogs)
     })
     this.authService.userRegistered.subscribe((value) => {
-      this.isLogedIn = value
+      this.isLoggedIn = value
     })
     this.blogs = this.blogsService.getBlogs()
   }
