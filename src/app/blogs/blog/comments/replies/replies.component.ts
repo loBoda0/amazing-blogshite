@@ -56,7 +56,7 @@ export class RepliesComponent implements OnInit {
   }
 
   updateVote(vote: number) {
-    const {voteStatus, voteCount} = this.blogsService.setReplyVotes(this.blogId, this.commentId, this.userId, vote)
+    const {voteStatus, voteCount} = this.blogsService.setReplyVotes(this.blogId, this.commentId, this.reply.id, this.userId, vote)
     this.voteCount += voteCount
     this.voteStatus = voteStatus
   }

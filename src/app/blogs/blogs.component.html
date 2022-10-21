@@ -4,7 +4,7 @@
 <button *ngIf="isLoggedIn" (click)="onLogOut()">Log Out</button>
 <div class="container">
   <div class="blog-card" *ngFor="let blog of blogs" [routerLink]="blog.id">
-    <img *ngIf="blog.image !== ''" [src]="blog.image" alt="{{ blog.image }}" />
+    <img *ngIf="blog.image" [src]="blog.image" alt="{{ blog.image }}" />
     <div class="card-body">
       <p>{{ blog.title }}</p>
       <p>{{ blog.body | shorten }}</p>

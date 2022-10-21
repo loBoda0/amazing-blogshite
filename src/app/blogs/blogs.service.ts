@@ -131,30 +131,34 @@ export class BlogService {
     this.createOrUpdateBlogPost(this.blogs.find(blog => blog.id === postId))
   }
   
-  setVotes(postId: string, userId: string, vote: number) {
+  setVotes(postId: string, commentId: string, userId: string, vote: number) {
     let voteCount = vote
     let voteStatus = vote
     this.blogs.forEach(blog => {
       if (blog.id === postId) {
         blog.comments.forEach(comment => {
-          if (comment.voting[userId] === vote) {
-            voteStatus = 0
-            voteCount = -1*vote
-            delete comment.voting[userId]
-          } else {
-            if (comment.voting[userId] !== undefined) {
-              voteCount *= 2
+          if (comment.id === commentId) {
+            if (comment.voting[userId] === vote) {
+              voteStatus = 0
+              voteCount *= -1
+              delete comment.voting[userId]
+              return
+            } else {
+              if (comment.voting[userId] !== undefined) {
+                voteCount *= 2
+              }
+              comment.voting[userId] = vote
             }
-            comment.voting[userId] = vote
-          } 
+          }
         });
       }
     })
     this.createOrUpdateBlogPost(this.blogs.find(blog => blog.id === postId))
+    console.log(voteStatus, voteCount)
     return {voteStatus, voteCount}
   }
-
-  setReplyVotes(postId: string, commentId: string, userId: string, vote: number) {
+  
+  setReplyVotes(postId: string, commentId: string, replyId: string, userId: string, vote: number) {
     let voteCount = vote
     let voteStatus = vote
     this.blogs.forEach(blog => {
@@ -162,21 +166,24 @@ export class BlogService {
         blog.comments.forEach(comment => {
           if (comment.id === commentId) {
             comment.replies.forEach(reply => {
-              if (reply.voting[userId] === vote) {
-                voteStatus = 0
-                voteCount = -1*vote
-                delete reply.voting[userId]
-              } else {
-                if (reply.voting[userId] !== undefined) {
-                  voteCount *= 2
-                }
-                reply.voting[userId] = vote
-              } 
+              if (reply.id === replyId) {
+                if (reply.voting[userId] === vote) {
+                  voteStatus = 0
+                  voteCount = -1*vote
+                  delete reply.voting[userId]
+                } else {
+                  if (reply.voting[userId] !== undefined) {
+                    voteCount *= 2
+                  }
+                  reply.voting[userId] = vote
+                } 
+              }
             })
           }
         });
       }
     })
+    console.log(voteStatus, voteCount)
     this.createOrUpdateBlogPost(this.blogs.find(blog => blog.id === postId))
     return {voteStatus, voteCount}
   }

@@ -76,7 +76,7 @@ export class CommentsComponent implements OnInit {
   }
 
   updateVote(vote) {
-    const {voteStatus, voteCount} = this.blogsService.setVotes(this.blogId, this.userId, vote)
+    const {voteStatus, voteCount} = this.blogsService.setVotes(this.blogId, this.comment.id, this.userId, vote)
     this.voteCount += voteCount
     this.voteStatus = voteStatus
   }
