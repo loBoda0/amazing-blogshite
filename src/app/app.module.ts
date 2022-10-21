@@ -15,6 +15,7 @@ import { LoginComponent } from './user/login/login.component';
 import { SignupComponent } from './user/signup/signup.component';
 import { CommentsComponent } from './blogs/blog/comments/comments.component';
 import { RepliesComponent } from './blogs/blog/comments/replies/replies.component';
+import { ShortenPipe } from './blogs/shorten.pipe';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { RepliesComponent } from './blogs/blog/comments/replies/replies.componen
     SignupComponent,
     CommentsComponent,
     RepliesComponent,
+    ShortenPipe,
   ],
   imports: [
     BrowserModule,

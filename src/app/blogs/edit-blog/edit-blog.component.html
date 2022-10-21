@@ -1,7 +1,8 @@
-<p>edit-blog works!</p>
-<form [formGroup]="editBlogForm">
-  <input type="text" formControlName="title" />
-  <textarea formControlName="body"></textarea>
-  <input type="text" formControlName="image" />
-  <button (click)="updateBlog()">Update Blog</button>
-</form>
+<div class="container">
+  <form [formGroup]="editBlogForm">
+    <input type="text" formControlName="title" />
+    <textarea formControlName="body"></textarea>
+    <input type="text" formControlName="image" />
+    <button (click)="updateBlog()">Update Blog</button>
+  </form>
+</div>

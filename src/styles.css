@@ -7,6 +7,12 @@
 }
 
 body {
-  display: flex;
   font-family: Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  margin: auto;
+  max-width: 960px;
+  flex-direction: column;
 }

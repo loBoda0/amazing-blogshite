@@ -3,20 +3,22 @@
 <button *ngIf="userId === blog.userId" (click)="deletePost()">
   Delete Post
 </button>
-<p>{{ blog.title }}</p>
-<p>{{ blog.body }}</p>
-<img [src]="blog.image" alt="" />
-<br />
-<div *ngIf="userId">
-  <label for="Comment">Comment on post:</label>
-  <textarea type="text" [(ngModel)]="message"></textarea>
-  <button (click)="postComment()">Post comment</button>
-  <button *ngIf="message !== ''" (click)="clearComment()">Cancel</button>
+<div class="container">
+  <img [src]="blog.image" alt="" />
+  <p>{{ blog.title }}</p>
+  <p>{{ blog.body }}</p>
+  <br />
+  <div *ngIf="userId">
+    <label for="Comment">Comment on post:</label>
+    <textarea type="text" [(ngModel)]="message"></textarea>
+    <button (click)="postComment()">Post comment</button>
+    <button *ngIf="message !== ''" (click)="clearComment()">Cancel</button>
+  </div>
+  <p>Comments</p>
+  <app-comments
+    *ngFor="let comment of blog.comments"
+    [comment]="comment"
+    [blogId]="blogId"
+    [commentId]="comment.id"
+  ></app-comments>
 </div>
-<p>Comments</p>
-<app-comments
-  *ngFor="let comment of blog.comments"
-  [comment]="comment"
-  [blogId]="blogId"
-  [commentId]="comment.id"
-></app-comments>

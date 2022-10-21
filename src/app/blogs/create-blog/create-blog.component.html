@@ -1,10 +1,18 @@
-<form [formGroup]="newBlogPost" (ngSubmit)="createBlog()">
-  <label>Title</label>
-  <input type="text" formControlName="title" />
-  <label>Body</label>
-  <textarea name="" id="" cols="30" rows="10" formControlName="body"></textarea>
-  <label>Image</label>
-  <input type="text" formControlName="image" />
-  <button type="submit">Submit Data</button>
-</form>
-<a routerLink="/">Go Home</a>
+<div class="container">
+  <form [formGroup]="newBlogPost" (ngSubmit)="createBlog()">
+    <label>Title</label>
+    <input type="text" formControlName="title" />
+    <label>Body</label>
+    <textarea
+      name=""
+      id=""
+      cols="30"
+      rows="10"
+      formControlName="body"
+    ></textarea>
+    <label>Image</label>
+    <input type="text" formControlName="image" />
+    <button type="submit">Submit Data</button>
+  </form>
+  <a routerLink="/">Go Home</a>
+</div>
