@@ -12,6 +12,7 @@ import { AuthService } from '../auth.service';
 export class LoginComponent implements OnInit, OnDestroy {
   logInForm: FormGroup
   formState: string
+  errorMessage: string = null
   sub: Subscription
 
   constructor(private authService: AuthService, private router: Router) { }
@@ -35,9 +36,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe()
   }
 
-  onSubmit() {
+  async onSubmit() {
     const username = this.logInForm.value.username
     const password = this.logInForm.value.password
-    this.authService.logIn(username, password)
+    const { error } = await this.authService.logIn(username, password)
+    this.errorMessage = error
   }
 }

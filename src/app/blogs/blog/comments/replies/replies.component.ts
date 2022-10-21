@@ -18,6 +18,7 @@ export class RepliesComponent implements OnInit {
   userId: string
   isEditMode: boolean = false
   voteCount: number
+  voteStatus: number
 
   constructor(private blogsService: BlogService, private authService: AuthService) { }
 
@@ -35,6 +36,9 @@ export class RepliesComponent implements OnInit {
     this.voteCount = values.reduce((accumulator, value) => {
       return accumulator + value;
     }, 0);
+    if (this.reply.voting[this.userId]) {
+      this.voteStatus = this.reply.voting[this.userId]
+    }
   }
 
   deleteReply(replyId: string) {
@@ -52,6 +56,8 @@ export class RepliesComponent implements OnInit {
   }
 
   updateVote(vote: number) {
-    this.voteCount = this.blogsService.setReplyVotes(this.blogId, this.commentId, this.reply.id, this.userId, vote)
+    const {voteStatus, voteCount} = this.blogsService.setReplyVotes(this.blogId, this.commentId, this.userId, vote)
+    this.voteCount += voteCount
+    this.voteStatus = voteStatus
   }
 }

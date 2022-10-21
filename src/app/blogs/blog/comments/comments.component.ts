@@ -20,6 +20,7 @@ export class CommentsComponent implements OnInit {
   isReply: boolean = false
   username: string = null
   voteCount: any
+  voteStatus: number
 
   constructor(private blogsService: BlogService, private authService: AuthService) { }
 
@@ -40,6 +41,9 @@ export class CommentsComponent implements OnInit {
     this.voteCount = values.reduce((accumulator, value) => {
       return accumulator + value;
     }, 0);
+    if (this.comment.voting[this.userId]) {
+      this.voteStatus = this.comment.voting[this.userId]
+    }
   }
   
   updateComment() {
@@ -55,16 +59,25 @@ export class CommentsComponent implements OnInit {
   toggleEditMode() {
     this.isEditMode = !this.isEditMode
   }
-
+  
   postReply() {
     this.blogsService.addReply(this.blogId, this.userId, this.username, this.commentId, this.postReplyForm.value.reply)
+    this.clearReply()
   }
-
+  
+  clearReply() {
+    console.log('form cleared')
+    this.postReplyForm.reset()
+  }
+  
   toggleReply() {
     this.isReply = !this.isReply
+    this.clearReply()
   }
 
   updateVote(vote) {
-    this.voteCount = this.blogsService.setVotes(this.blogId, this.commentId, this.userId, vote)
+    const {voteStatus, voteCount} = this.blogsService.setVotes(this.blogId, this.userId, vote)
+    this.voteCount += voteCount
+    this.voteStatus = voteStatus
   }
 }

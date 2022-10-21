@@ -31,11 +31,10 @@ export class BlogService {
   }
 
   async updateBlogPost(id: string, updatedBlog: Blog) {
-    this.blogs.map((blog) => {
+    this.blogs.forEach(blog => {
       if (blog.id === id) {
-        return updatedBlog
+        blog = updatedBlog
       }
-      return blog
     })
     this.createOrUpdateBlogPost(updatedBlog)
   }
@@ -54,97 +53,132 @@ export class BlogService {
     }
   }
 
-  addComment(id: string, username: string, body: string, userId: string) {
+  addComment(postId: string, username: string, body: string, userId: string) {
     const comment = new Comment(userId, username, body)
-    let blogIdx = this.blogs.findIndex(blog => blog.id === id)
-    this.blogs.map((blog) => {
-      if (blog.id === id) {
-        return blog.comments.push(comment)
+    this.blogs.forEach(blog => {
+      if (blog.id === postId) {
+        blog.comments.push(comment)
       }
-      return blog
     })
-    this.createOrUpdateBlogPost(this.blogs[blogIdx])
+    this.createOrUpdateBlogPost(this.blogs.find(blog => blog.id === postId))
   }
 
   updateComment(postId: string, commentId: string, textBody: string) {
-    let blogIdx = this.blogs.findIndex(blog => blog.id === postId)
-    this.blogs[blogIdx].comments.map(comment => {
-      if (comment.id === commentId) {
-        return comment.commentBody = textBody
+    this.blogs.forEach(blog => {
+      if (blog.id === postId) {
+        blog.comments.forEach(comment => {
+          if (comment.id === commentId) {
+            comment.commentBody = textBody
+          }
+        })
       }
-      return comment
     })
-    this.createOrUpdateBlogPost(this.blogs[blogIdx])
+    this.createOrUpdateBlogPost(this.blogs.find(blog => blog.id === postId))
   }
 
   deleteComment(postId: string, commentId: string) {
-    let blogIdx = this.blogs.findIndex(blog => blog.id === postId)
-    let commentIdx = this.blogs[blogIdx].comments.findIndex(comment => comment.id === commentId)
-    this.blogs[blogIdx].comments.splice(commentIdx, 1)
-    this.createOrUpdateBlogPost(this.blogs[blogIdx])
+    this.blogs.forEach(blog => {
+      if (blog.id === postId) {
+        let idx = blog.comments.findIndex(comment => comment.id === commentId)
+        blog.comments.splice(idx, 1)
+      }
+    })
+    this.createOrUpdateBlogPost(this.blogs.find(blog => blog.id === postId))
   }
   
   addReply(postId: string, userId: string, username: string, commentId: string, body: string) {
     const reply = new Comment(userId, username, body)
-    let blogIdx = this.blogs.findIndex(blog => blog.id === postId)
-    let commentIdx = this.blogs[blogIdx].comments.findIndex(comment => comment.id === commentId)
-    this.blogs[blogIdx].comments[commentIdx].replies.push(reply)
-    this.createOrUpdateBlogPost(this.blogs[blogIdx])
+    this.blogs.forEach(blog => {
+      if (blog.id === postId) {
+        blog.comments.forEach(comment => {
+          if (comment.id === commentId) {
+            comment.replies.push(reply)
+          }
+        })
+      }
+    })
+    this.createOrUpdateBlogPost(this.blogs.find(blog => blog.id === postId))
   }
 
   updateReply(postId: string, commentId: string, replyId: string, body: string) {
-    let blogIdx = this.blogs.findIndex(blog => blog.id === postId)
-    let commentIdx = this.blogs[blogIdx].comments.findIndex(comment => comment.id === commentId)
-    let replyIdx = this.blogs[blogIdx].comments[commentIdx].replies.findIndex(reply => reply.id === replyId)
-    this.blogs[blogIdx].comments[commentIdx].replies[replyIdx].commentBody = body
-    this.createOrUpdateBlogPost(this.blogs[blogIdx])
+    this.blogs.forEach(blog => {
+      if (blog.id === postId) {
+        blog.comments.forEach(comment => {
+          if (comment.id === commentId) {
+            comment.replies.forEach(reply => {
+              if (reply.id === replyId) {
+                reply.commentBody = body
+              }
+            })
+          }
+        })
+      }
+    })
+    this.createOrUpdateBlogPost(this.blogs.find(blog => blog.id === postId))
   }
   
   removeReply(postId: string, commentId: string, replyId: string) {
-    let blogIdx = this.blogs.findIndex(blog => blog.id === postId)
-    let commentIdx = this.blogs[blogIdx].comments.findIndex(comment => comment.id === commentId)
-    let replyIdx = this.blogs[blogIdx].comments[commentIdx].replies.findIndex(reply => reply.id === replyId)
-    this.blogs[blogIdx].comments[commentIdx].replies.splice(replyIdx, 1)
-    this.createOrUpdateBlogPost(this.blogs[blogIdx])
+    this.blogs.forEach(blog => {
+      if (blog.id === postId) {
+        blog.comments.forEach(comment => {
+          if (comment.id === commentId) {
+            let idx = comment.replies.findIndex(reply => reply.id === replyId)
+            comment.replies.splice(idx, 1)
+          }
+        })
+      }
+    })
+    this.createOrUpdateBlogPost(this.blogs.find(blog => blog.id === postId))
   }
   
-  setVotes(postId: string, commentId: string, userId: string, vote: number) {
-    let blogIdx = this.blogs.findIndex(blog => blog.id === postId)
-    let commentIdx = this.blogs[blogIdx].comments.findIndex(comment => comment.id === commentId)
-    if (this.blogs[blogIdx].comments[commentIdx].voting[userId] !== undefined) {
-      if (this.blogs[blogIdx].comments[commentIdx].voting[userId] == vote) {
-        delete this.blogs[blogIdx].comments[commentIdx].voting[userId]
+  setVotes(postId: string, userId: string, vote: number) {
+    let voteCount = vote
+    let voteStatus = vote
+    this.blogs.forEach(blog => {
+      if (blog.id === postId) {
+        blog.comments.forEach(comment => {
+          if (comment.voting[userId] === vote) {
+            voteStatus = 0
+            voteCount = -1*vote
+            delete comment.voting[userId]
+          } else {
+            if (comment.voting[userId] !== undefined) {
+              voteCount *= 2
+            }
+            comment.voting[userId] = vote
+          } 
+        });
       }
-      else 
-      this.blogs[blogIdx].comments[commentIdx].voting[userId] = vote
-    } else {
-      this.blogs[blogIdx].comments[commentIdx].voting[userId] = vote
-    }
-    this.createOrUpdateBlogPost(this.blogs[blogIdx])
-    let values: number[] = Object.values(this.blogs[blogIdx].comments[commentIdx].voting)
-    return values.reduce((accumulator, value) => {
-      return accumulator + value;
-    }, 0);
+    })
+    this.createOrUpdateBlogPost(this.blogs.find(blog => blog.id === postId))
+    return {voteStatus, voteCount}
   }
 
-  setReplyVotes(postId: string, commentId: string, replyId: string, userId: string, vote: number) {
-    let blogIdx = this.blogs.findIndex(blog => blog.id === postId)
-    let commentIdx = this.blogs[blogIdx].comments.findIndex(comment => comment.id === commentId)
-    let replyIdx = this.blogs[blogIdx].comments[commentIdx].replies.findIndex(reply => reply.id === replyId)
-    if (this.blogs[blogIdx].comments[commentIdx].replies[replyIdx].voting[userId] !== undefined) {
-      if (this.blogs[blogIdx].comments[commentIdx].replies[replyIdx].voting[userId] == vote) {
-        delete this.blogs[blogIdx].comments[commentIdx].replies[replyIdx].voting[userId]
+  setReplyVotes(postId: string, commentId: string, userId: string, vote: number) {
+    let voteCount = vote
+    let voteStatus = vote
+    this.blogs.forEach(blog => {
+      if (blog.id === postId) {
+        blog.comments.forEach(comment => {
+          if (comment.id === commentId) {
+            comment.replies.forEach(reply => {
+              if (reply.voting[userId] === vote) {
+                voteStatus = 0
+                voteCount = -1*vote
+                delete reply.voting[userId]
+              } else {
+                if (reply.voting[userId] !== undefined) {
+                  voteCount *= 2
+                }
+                reply.voting[userId] = vote
+              } 
+            })
+          }
+        });
       }
-      else 
-      this.blogs[blogIdx].comments[commentIdx].replies[replyIdx].voting[userId] = vote
-    } else {
-      this.blogs[blogIdx].comments[commentIdx].replies[replyIdx].voting[userId] = vote
-    }
-    this.createOrUpdateBlogPost(this.blogs[blogIdx])
-    let values: number[] = Object.values(this.blogs[blogIdx].comments[commentIdx].replies[replyIdx].voting)
-    return values.reduce((accumulator, value) => {
-      return accumulator + value;
-    }, 0);
+    })
+    this.createOrUpdateBlogPost(this.blogs.find(blog => blog.id === postId))
+    return {voteStatus, voteCount}
   }
   
   async createOrUpdateBlogPost(blog: Blog) {

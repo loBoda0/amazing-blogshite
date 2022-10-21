@@ -42,8 +42,13 @@ export class AuthService {
       this.username.next(username)
       let userToStorage: {username: string, password: string} = {username, password}
       localStorage.setItem('userCredentials', JSON.stringify(userToStorage))
+      return {
+        success: 'success'
+      }
     } catch (err) {
-      console.log(err)
+      return {
+        error: err.message
+      }
     }
   }
   

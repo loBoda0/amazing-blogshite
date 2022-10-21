@@ -13,7 +13,6 @@ export class BlogComponent implements OnInit {
   blog: Blog
   blogId: string
   message: string = ''
-  /* isLoggedIn: boolean = false */
   userId: string = null
   username: string = null
 
@@ -29,9 +28,6 @@ export class BlogComponent implements OnInit {
       this.blogId = params['id']
       this.blog = this.blogsService.getBlogById(this.blogId)
     })
-    /* this.authService.userRegistered.subscribe((value) => {
-      this.isLoggedIn = value
-    }) */
     this.authService.userId.subscribe((value) => {
       this.userId = value
     })
@@ -42,6 +38,11 @@ export class BlogComponent implements OnInit {
 
   postComment() {
     this.blogsService.addComment(this.blogId, this.username, this.message, this.userId)
+    this.clearComment()
+  }
+
+  clearComment() {
+    this.message = ''
   }
 
   deletePost() {

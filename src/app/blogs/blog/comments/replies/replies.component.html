@@ -21,6 +21,18 @@
     </button>
   </div>
 </div>
-<button [disabled]="!userId" (click)="updateVote(1)">Upvote</button>
-<button [disabled]="!userId" (click)="updateVote(-1)">Downvote</button>
+<button
+  [disabled]="!userId"
+  [ngStyle]="{ 'background-color': voteStatus == 1 ? '#73c7af' : '#ffffff' }"
+  (click)="updateVote(1)"
+>
+  Upvote
+</button>
+<button
+  [disabled]="!userId"
+  [ngStyle]="{ 'background-color': voteStatus == -1 ? '#73c7af' : '#ffffff' }"
+  (click)="updateVote(-1)"
+>
+  Downvote
+</button>
 {{ voteCount }}

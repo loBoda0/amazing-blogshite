@@ -11,6 +11,7 @@
   <label for="Comment">Comment on post:</label>
   <textarea type="text" [(ngModel)]="message"></textarea>
   <button (click)="postComment()">Post comment</button>
+  <button *ngIf="message !== ''" (click)="clearComment()">Cancel</button>
 </div>
 <p>Comments</p>
 <app-comments
