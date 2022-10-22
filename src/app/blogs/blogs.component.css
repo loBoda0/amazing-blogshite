@@ -1,14 +1,13 @@
-/* :host {
-  width: 100vw;
-}
- */
-
 .blog-card {
   display: flex;
   height: 400px;
   border-radius: 1rem;
   overflow: hidden;
   margin: 1rem;
+}
+
+.blog-card:nth-child(even) {
+  flex-direction: row-reverse;
 }
 
 .card-body {

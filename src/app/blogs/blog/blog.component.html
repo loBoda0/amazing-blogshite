@@ -7,14 +7,16 @@
   <img [src]="blog.image" alt="" />
   <p>{{ blog.title }}</p>
   <p>{{ blog.body }}</p>
-  <br />
-  <div *ngIf="userId">
-    <label for="Comment">Comment on post:</label>
-    <textarea type="text" [(ngModel)]="message"></textarea>
-    <button (click)="postComment()">Post comment</button>
-    <button *ngIf="message !== ''" (click)="clearComment()">Cancel</button>
-  </div>
+  <hr />
   <p>Comments</p>
+  <div *ngIf="userId" class="add-comment">
+    <label for="Comment">Add comment:</label>
+    <textarea type="text" [(ngModel)]="message"></textarea>
+    <button class="btn" (click)="postComment()">Post comment</button>
+    <button class="btn" *ngIf="message !== ''" (click)="clearComment()">
+      Cancel
+    </button>
+  </div>
   <app-comments
     *ngFor="let comment of blog.comments"
     [comment]="comment"

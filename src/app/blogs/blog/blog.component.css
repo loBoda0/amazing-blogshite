@@ -1,3 +1,13 @@
+hr {
+  margin: 10px;
+}
+
+.add-comment {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
 img {
   height: auto;
   width: auto;

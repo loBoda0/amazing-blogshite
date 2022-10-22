@@ -1,0 +1,16 @@
+.comment {
+  display: flex;
+  width: 100%;
+  border: 1px solid black;
+}
+
+.comment-vote {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.replies-container {
+  margin-left: 1rem;
+}

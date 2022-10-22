@@ -16,3 +16,9 @@ body {
   max-width: 960px;
   flex-direction: column;
 }
+
+.btn {
+  border: 1px solid black;
+  background-color: transparent;
+  padding: 0.3rem;
+}
