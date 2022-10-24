@@ -33,11 +33,13 @@ export class EditBlogComponent implements OnInit {
   }
 
   updateBlog() {
-    const { title, body, image } = this.editBlogForm.value
-    this.blog.title = title
-    this.blog.body = body
-    this.blog.image = image
-    this.blogService.updateBlogPost(this.id, this.blog)
-    this.router.navigate(['/'])
+    if (this.editBlogForm.valid) {
+      const { title, body, image } = this.editBlogForm.value
+      this.blog.title = title
+      this.blog.body = body
+      this.blog.image = image
+      this.blogService.updateBlogPost(this.id, this.blog)
+      this.router.navigate(['/'])
+    }
   }
 }

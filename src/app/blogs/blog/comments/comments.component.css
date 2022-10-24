@@ -1,14 +1,14 @@
 .comment {
-  display: flex;
-  width: 100%;
-  border: 1px solid black;
+  border-top: 1px solid black;
 }
 
-.comment-vote {
+.comment-header {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+}
+
+.comment-footer {
+  color: rgb(83, 83, 83);
 }
 
 .replies-container {

@@ -1,8 +1,14 @@
 <div class="container">
   <form [formGroup]="editBlogForm">
+    <label>Title:</label>
     <input type="text" formControlName="title" />
+    <label>Story:</label>
     <textarea formControlName="body"></textarea>
+    <label>Image:</label>
     <input type="text" formControlName="image" />
-    <button (click)="updateBlog()">Update Blog</button>
+    <button class="btn" type="submit" (click)="updateBlog()">
+      Update Blog
+    </button>
+    <button class="btn" type="button" routerLink="..">Cancel</button>
   </form>
 </div>

@@ -1,7 +1,8 @@
 <a *ngIf="!isLoggedIn" routerLink="/login">Login</a>
-<a *ngIf="isLoggedIn" routerLink="/new">Create new post</a>
-<!-- <a routerLink="/new">Create new post</a> -->
-<button *ngIf="isLoggedIn" (click)="onLogOut()">Log Out</button>
+<div *ngIf="isLoggedIn">
+  <a routerLink="/new">Create new post</a>
+  <button class="btn" (click)="onLogOut()">Log Out</button>
+</div>
 <div class="container">
   <div class="blog-card" *ngFor="let blog of blogs" [routerLink]="blog.id">
     <img *ngIf="blog.image" [src]="blog.image" alt="{{ blog.image }}" />

@@ -37,8 +37,10 @@ export class BlogComponent implements OnInit {
   }
 
   postComment() {
-    this.blogsService.addComment(this.blogId, this.username, this.message, this.userId)
-    this.clearComment()
+    if (this.message !== '') {
+      this.blogsService.addComment(this.blogId, this.username, this.message, this.userId)
+      this.clearComment()
+    }
   }
 
   clearComment() {

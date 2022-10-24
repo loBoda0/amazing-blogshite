@@ -47,8 +47,10 @@ export class CommentsComponent implements OnInit {
   }
   
   updateComment() {
-    const body = this.updateCommentForm.value.comment
-    this.blogsService.updateComment(this.blogId, this.commentId, body)
+    if (this.updateCommentForm.valid) {
+      const body = this.updateCommentForm.value.comment
+      this.blogsService.updateComment(this.blogId, this.commentId, body)
+    }
     this.toggleEditMode()
   }
   
@@ -61,7 +63,9 @@ export class CommentsComponent implements OnInit {
   }
   
   postReply() {
-    this.blogsService.addReply(this.blogId, this.userId, this.username, this.commentId, this.postReplyForm.value.reply)
+    if (this.postReplyForm.valid) {
+      this.blogsService.addReply(this.blogId, this.userId, this.username, this.commentId, this.postReplyForm.value.reply)
+    }
     this.clearReply()
   }
   
@@ -75,7 +79,7 @@ export class CommentsComponent implements OnInit {
     this.clearReply()
   }
 
-  updateVote(vote) {
+  updateVote(vote: number) {
     const {voteStatus, voteCount} = this.blogsService.setVotes(this.blogId, this.comment.id, this.userId, vote)
     this.voteCount += voteCount
     this.voteStatus = voteStatus
