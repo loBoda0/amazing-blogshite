@@ -1,18 +1,87 @@
-<p [hidden]="isEditMode">{{ comment.commentBody }}</p>
-<form
-  [hidden]="!isEditMode"
-  [formGroup]="updateCommentForm"
-  (ngSubmit)="updateComment()"
->
-  <textarea name="" cols="30" rows="1" formControlName="comment"></textarea>
-  <button *ngIf="userId === comment.userId" type="submit">Save Comment</button>
-  <button (click)="toggleEditMode()" type="button">Cancel</button>
-</form>
-<div [hidden]="isEditMode">
-  <button *ngIf="userId === comment.userId" (click)="toggleEditMode()">
-    Update Comment
-  </button>
-  <button *ngIf="userId === comment.userId" (click)="deleteComment()">
-    Delete Comment
-  </button>
+<div class="comment">
+  <div class="comment-header">
+    {{ comment.username }}
+    <div [hidden]="isEditMode">
+      <button
+        class="btn"
+        *ngIf="userId === comment.userId"
+        (click)="toggleEditMode()"
+      >
+        Update Comment
+      </button>
+      <button
+        class="btn"
+        *ngIf="userId === comment.userId"
+        (click)="deleteComment()"
+      >
+        Delete Comment
+      </button>
+    </div>
+  </div>
+  <div class="comment-body">
+    <p [hidden]="isEditMode">
+      {{ comment.commentBody }}
+    </p>
+    <div class="form" [hidden]="!isEditMode">
+      <form [formGroup]="updateCommentForm" (ngSubmit)="updateComment()">
+        <textarea cols="30" rows="1" formControlName="comment"></textarea>
+        <div class="form-footer">
+          <button class="btn" *ngIf="userId === comment.userId" type="submit">
+            Save Comment
+          </button>
+          <button class="btn" (click)="toggleEditMode()" type="button">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="comment-footer">
+    <button
+      [disabled]="!userId"
+      (click)="toggleReply()"
+      type="button"
+      class="btn"
+    >
+      Add reply
+    </button>
+    <button
+      [disabled]="!userId"
+      [ngStyle]="{
+        'background-color': voteStatus == 1 ? '#73c7af' : '#ffffff'
+      }"
+      (click)="updateVote(1)"
+      class="btn"
+    >
+      Upvote
+    </button>
+    {{ voteCount }}
+    <button
+      [disabled]="!userId"
+      [ngStyle]="{
+        'background-color': voteStatus == -1 ? '#bf7171' : '#ffffff'
+      }"
+      (click)="updateVote(-1)"
+      class="btn"
+    >
+      Downvote
+    </button>
+  </div>
+</div>
+<div class="form" *ngIf="isReply">
+  <form [formGroup]="postReplyForm" (ngSubmit)="postReply()">
+    <textarea cols="30" rows="1" formControlName="reply"></textarea>
+    <div class="form-footer">
+      <button class="btn" type="submit">Post reply</button>
+      <button class="btn" type="button" (click)="toggleReply()">Cancel</button>
+    </div>
+  </form>
+</div>
+<div class="replies-container">
+  <app-replies
+    *ngFor="let reply of comment.replies"
+    [reply]="reply"
+    [blogId]="blogId"
+    [commentId]="comment.id"
+  ></app-replies>
 </div>

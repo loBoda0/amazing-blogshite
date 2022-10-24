@@ -6,7 +6,5 @@
     "fieldType": "string"
   },
   "gsi": [],
-  "triggerFunctions": [
-    "blogsLambda"
-  ]
+  "triggerFunctions": []
 }

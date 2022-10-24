@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -14,6 +15,8 @@ import { AuthService } from './user/auth.service';
 import { LoginComponent } from './user/login/login.component';
 import { SignupComponent } from './user/signup/signup.component';
 import { CommentsComponent } from './blogs/blog/comments/comments.component';
+import { RepliesComponent } from './blogs/blog/comments/replies/replies.component';
+import { ShortenPipe } from './blogs/shorten.pipe';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,8 @@ import { CommentsComponent } from './blogs/blog/comments/comments.component';
     LoginComponent,
     SignupComponent,
     CommentsComponent,
+    RepliesComponent,
+    ShortenPipe,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +38,7 @@ import { CommentsComponent } from './blogs/blog/comments/comments.component';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [BlogService, AuthService],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, BlogService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

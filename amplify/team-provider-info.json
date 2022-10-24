@@ -1,26 +1,32 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-amazingblogshite-dev-93644-authRole",
-      "UnauthRoleArn": "arn:aws:iam::930698342647:role/amplify-amazingblogshite-dev-93644-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::930698342647:role/amplify-amazingblogshite-dev-93644-authRole",
+      "AuthRoleName": "amplify-amazingblogshite-dev-192428-authRole",
+      "UnauthRoleArn": "arn:aws:iam::930698342647:role/amplify-amazingblogshite-dev-192428-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::930698342647:role/amplify-amazingblogshite-dev-192428-authRole",
       "Region": "eu-central-1",
-      "DeploymentBucketName": "amplify-amazingblogshite-dev-93644-deployment",
-      "UnauthRoleName": "amplify-amazingblogshite-dev-93644-unauthRole",
-      "StackName": "amplify-amazingblogshite-dev-93644",
-      "StackId": "arn:aws:cloudformation:eu-central-1:930698342647:stack/amplify-amazingblogshite-dev-93644/77c1b6c0-4480-11ed-a131-0239f7eb1eaa",
-      "AmplifyAppId": "d31wdmpo6ncoo5",
-      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-amazingblogshite-dev-93644-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
+      "DeploymentBucketName": "amplify-amazingblogshite-dev-192428-deployment",
+      "UnauthRoleName": "amplify-amazingblogshite-dev-192428-unauthRole",
+      "StackName": "amplify-amazingblogshite-dev-192428",
+      "StackId": "arn:aws:cloudformation:eu-central-1:930698342647:stack/amplify-amazingblogshite-dev-192428/6605cbd0-48c0-11ed-8b0b-06da7ff4bf66",
+      "AmplifyAppId": "d35ilhn27aa6kz",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-amazingblogshite-dev-192428-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
       "auth": {
-        "true": {},
-        "amazingblogshite6d488b46": {}
+        "amazingblogshite576baaa4": {},
+        "true": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d35ilhn27aa6kz",
+          "type": "manual"
+        }
       },
       "function": {
         "blogsLambda": {
-          "deploymentBucketName": "amplify-amazingblogshite-dev-93644-deployment",
-          "s3Key": "amplify-builds/blogsLambda-6c6d42306e544b77594b-build.zip"
+          "deploymentBucketName": "amplify-amazingblogshite-dev-192428-deployment",
+          "s3Key": "amplify-builds/blogsLambda-742f5477697043566573-build.zip"
         }
       }
     }

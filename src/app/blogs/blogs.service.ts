@@ -1,99 +1,197 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http"
-import { Injectable } from "@angular/core"
-import { Blog, Comment } from "./blog.model"
-import { Auth, API } from "aws-amplify"
-
+import { Injectable } from '@angular/core'
+import { Blog, Comment } from './blog.model'
+import { API } from 'aws-amplify'
+import { Subject } from 'rxjs'
 
 @Injectable()
 export class BlogService {
-  constructor(private http: HttpClient) {}
   apiName = 'blogsApi'
   path = '/blogs'
+  updatedBlogs = new Subject<Blog[]>()
 
-  private blogs: Blog[] = [
-    new Blog("6971ae53-074c-4f08-a0e9-28672d10746a", "Tern, white-winged",
-      "Person on outside of car injured in collision with two- or three-wheeled motor vehicle in traffic accident, subsequent encounter",
-      "https://picsum.photos/200"
-    ),
-    new Blog("6971ae53-074c-4f08-a0e9-28672d10746a", "Monitor, water",
-      "Unspecified traumatic spondylolisthesis of third cervical vertebra",
-      "https://picsum.photos/200"
-    ),
-      new Blog("6971ae53-074c-4f08-a0e9-28672d10746a", "Woylie",
-      "Complete lesion at C1 level of cervical spinal cord",
-    ),
-    new Blog("6971ae53-074c-4f08-a0e9-28672d10746a", "Tortoise, galapagos",
-      "Fracture of unspecified part of neck of femur",
-      "https://picsum.photos/200"
-    ),
-    new Blog("6971ae53-074c-4f08-a0e9-28672d10746a", "Sarus crane",
-      "Acute rheumatic pericarditis"
-    ),
-    new Blog("619cfb57-58ba-42a4-84a2-3337b1352f51", "Vulture, white-rumped",
-      "Furuncle of umbilicus",
-      "https://picsum.photos/200"
-    ),
-    new Blog("619cfb57-58ba-42a4-84a2-3337b1352f51", "White-tailed deer",
-      "Insect bite (nonvenomous) of right ear, initial encounter",
-      "https://picsum.photos/200"
-    ),
-    new Blog("619cfb57-58ba-42a4-84a2-3337b1352f51", "Skunk, striped",
-      "Corrosion of first degree of unspecified axilla, subsequent encounter",
-      "https://picsum.photos/200"
-    ),
-    new Blog("619cfb57-58ba-42a4-84a2-3337b1352f51", "Francolin, swainson's",
-      "Toxic effect of venom of ants, accidental (unintentional), initial encounter"
-    ),
-    new Blog("619cfb57-58ba-42a4-84a2-3337b1352f51", "Bahama pintail",
-      "Multiple fractures of ribs",
-      "https://picsum.photos/200"
-    )
-  ]
-  
+  blogs: Blog[] = []
+
+  async setBlogs() {
+    const { data } = await API.get(this.apiName, this.path, {})
+    this.updatedBlogs.next(data)
+    this.blogs = data
+  }
+
   getBlogs() {
     return this.blogs
   }
 
-  getBlogById(id: number) {
-    return this.blogs[id]
+  getBlogById(id: string) {
+    return this.blogs.find((blog) => blog.id == id)
   }
 
   async createBlog(blog: Blog) {
     this.blogs.push(blog)
-    /* Auth.currentSession().then(res => {
-      let jwt = res.getAccessToken().getJwtToken()
-      const init = {
-        body: blog,
-        headers: {'Authorization': jwt}
+    this.createOrUpdateBlogPost(blog)
+  }
+
+  async updateBlogPost(id: string, updatedBlog: Blog) {
+    this.blogs.forEach(blog => {
+      if (blog.id === id) {
+        blog = updatedBlog
       }
-      API.post(this.apiName, this.path, init)
-    }) */
+    })
+    this.createOrUpdateBlogPost(updatedBlog)
+  }
+
+  deleteBlogPost(id: string) {
+    let blogIdx = this.blogs.findIndex(blog => blog.id === id)
     const myInit = {
-      body: blog
+      body: this.blogs[blogIdx],
     }
-    console.log(myInit)
-    const { message } = await API.post(this.apiName, this.path, myInit)
-    console.log(message)
+    try {
+      API.put(this.apiName, this.path, myInit)
+      delete this.blogs[blogIdx]
+      this.updatedBlogs.next(this.blogs)
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  addComment(postId: string, username: string, body: string, userId: string) {
+    const comment = new Comment(userId, username, body)
+    this.blogs.forEach(blog => {
+      if (blog.id === postId) {
+        blog.comments.push(comment)
+      }
+    })
+    this.createOrUpdateBlogPost(this.blogs.find(blog => blog.id === postId))
+  }
+
+  updateComment(postId: string, commentId: string, textBody: string) {
+    this.blogs.forEach(blog => {
+      if (blog.id === postId) {
+        blog.comments.forEach(comment => {
+          if (comment.id === commentId) {
+            comment.commentBody = textBody
+          }
+        })
+      }
+    })
+    this.createOrUpdateBlogPost(this.blogs.find(blog => blog.id === postId))
+  }
+
+  deleteComment(postId: string, commentId: string) {
+    this.blogs.forEach(blog => {
+      if (blog.id === postId) {
+        let idx = blog.comments.findIndex(comment => comment.id === commentId)
+        blog.comments.splice(idx, 1)
+      }
+    })
+    this.createOrUpdateBlogPost(this.blogs.find(blog => blog.id === postId))
   }
   
-  updateBlogPost(id: number, blog: Blog) {
-    this.blogs[id] = blog;
+  addReply(postId: string, userId: string, username: string, commentId: string, body: string) {
+    const reply = new Comment(userId, username, body)
+    this.blogs.forEach(blog => {
+      if (blog.id === postId) {
+        blog.comments.forEach(comment => {
+          if (comment.id === commentId) {
+            comment.replies.push(reply)
+          }
+        })
+      }
+    })
+    this.createOrUpdateBlogPost(this.blogs.find(blog => blog.id === postId))
+  }
+
+  updateReply(postId: string, commentId: string, replyId: string, body: string) {
+    this.blogs.forEach(blog => {
+      if (blog.id === postId) {
+        blog.comments.forEach(comment => {
+          if (comment.id === commentId) {
+            comment.replies.forEach(reply => {
+              if (reply.id === replyId) {
+                reply.commentBody = body
+              }
+            })
+          }
+        })
+      }
+    })
+    this.createOrUpdateBlogPost(this.blogs.find(blog => blog.id === postId))
   }
   
-  deleteBlogPost(id: number) {
-    this.blogs.splice(id, 1)
+  removeReply(postId: string, commentId: string, replyId: string) {
+    this.blogs.forEach(blog => {
+      if (blog.id === postId) {
+        blog.comments.forEach(comment => {
+          if (comment.id === commentId) {
+            let idx = comment.replies.findIndex(reply => reply.id === replyId)
+            comment.replies.splice(idx, 1)
+          }
+        })
+      }
+    })
+    this.createOrUpdateBlogPost(this.blogs.find(blog => blog.id === postId))
   }
-
-  addComment(id: number, body: string, userId: string) {
-    const comment = new Comment(userId, body)
-    this.blogs[id].comments.push(comment)
+  
+  setVotes(postId: string, commentId: string, userId: string, vote: number) {
+    let voteCount = vote
+    let voteStatus = vote
+    this.blogs.forEach(blog => {
+      if (blog.id === postId) {
+        blog.comments.forEach(comment => {
+          if (comment.id === commentId) {
+            if (comment.voting[userId] === vote) {
+              voteStatus = 0
+              voteCount *= -1
+              delete comment.voting[userId]
+              return
+            } else {
+              if (comment.voting[userId] !== undefined) {
+                voteCount *= 2
+              }
+              comment.voting[userId] = vote
+            }
+          }
+        });
+      }
+    })
+    this.createOrUpdateBlogPost(this.blogs.find(blog => blog.id === postId))
+    console.log(voteStatus, voteCount)
+    return {voteStatus, voteCount}
   }
-
-  updateComment(postId: number, commentId: number, textBody: string) {
-    this.blogs[postId].comments[commentId].commentBody = textBody
+  
+  setReplyVotes(postId: string, commentId: string, replyId: string, userId: string, vote: number) {
+    let voteCount = vote
+    let voteStatus = vote
+    this.blogs.forEach(blog => {
+      if (blog.id === postId) {
+        blog.comments.forEach(comment => {
+          if (comment.id === commentId) {
+            comment.replies.forEach(reply => {
+              if (reply.id === replyId) {
+                if (reply.voting[userId] === vote) {
+                  voteStatus = 0
+                  voteCount = -1*vote
+                  delete reply.voting[userId]
+                } else {
+                  if (reply.voting[userId] !== undefined) {
+                    voteCount *= 2
+                  }
+                  reply.voting[userId] = vote
+                } 
+              }
+            })
+          }
+        });
+      }
+    })
+    console.log(voteStatus, voteCount)
+    this.createOrUpdateBlogPost(this.blogs.find(blog => blog.id === postId))
+    return {voteStatus, voteCount}
   }
-
-  deleteComment(postId: number, commentId: number) {
-    this.blogs[postId].comments.splice(commentId, 1)
+  
+  async createOrUpdateBlogPost(blog: Blog) {
+    const myInit = {
+      body: blog,
+    }
+    await API.post(this.apiName, this.path, myInit)
   }
 }

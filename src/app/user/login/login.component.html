@@ -1,9 +1,12 @@
-<a routerLink="/signup">If you don't have acc, sign up here</a>
-<a routerLink="/">Go Back</a>
-<form [formGroup]="logInForm" (ngSubmit)="onSubmit()">
-  <label for="username">Username</label>
-  <input type="text" id="username" formControlName="username" />
-  <label for="password">Password</label>
-  <input type="password" formControlName="password" id="password" />
-  <button type="submit">Submit</button>
-</form>
+<div class="wraper">
+  <a routerLink="/">Go Back</a>
+  <form [formGroup]="logInForm" (ngSubmit)="onSubmit()">
+    <label for="username">Username</label>
+    <input type="text" id="username" formControlName="username" />
+    <label for="password">Password</label>
+    <input type="password" formControlName="password" id="password" />
+    <button type="submit">Submit</button>
+  </form>
+  <p *ngIf="errorMessage">{{ errorMessage }}</p>
+  <a routerLink="/signup">sign up</a>
+</div>

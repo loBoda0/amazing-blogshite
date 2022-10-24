@@ -5,7 +5,16 @@
       "name": "/blogs",
       "lambdaFunction": "blogsLambda",
       "permissions": {
-        "setting": "open"
+        "setting": "protected",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ],
+        "guest": [
+          "read"
+        ]
       }
     }
   }

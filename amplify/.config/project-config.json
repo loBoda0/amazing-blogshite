@@ -6,9 +6,10 @@
     "framework": "angular",
     "config": {
       "SourceDir": "src",
-      "DistributionDir": "dist",
+      "DistributionDir": "dist/amazing-blogshite",
       "BuildCommand": "npm.cmd run-script build",
-      "StartCommand": "ng serve"
+      "StartCommand": "ng serve",
+      "ServerlessContainers": true
     }
   },
   "providers": [

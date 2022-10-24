@@ -1,0 +1,16 @@
+.comment {
+  border-top: 1px solid black;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.comment-footer {
+  color: rgb(83, 83, 83);
+}
+
+.replies-container {
+  margin-left: 1rem;
+}

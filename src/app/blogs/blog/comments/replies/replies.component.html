@@ -1,0 +1,62 @@
+<div class="reply">
+  <div class="reply-header">
+    {{ reply.username }}
+    <div [hidden]="isEditMode">
+      <button
+        class="btn"
+        *ngIf="userId === reply.userId"
+        (click)="toggleEditMode()"
+      >
+        Update reply
+      </button>
+      <button
+        class="btn"
+        *ngIf="userId === reply.userId"
+        (click)="deleteReply(reply.id)"
+      >
+        Delete reply
+      </button>
+    </div>
+  </div>
+  <div class="reply-body">
+    <p [hidden]="isEditMode">
+      {{ reply.commentBody }}
+    </p>
+    <div class="form" [hidden]="!isEditMode">
+      <form [formGroup]="updateReplyForm" (ngSubmit)="updateReply()">
+        <textarea cols="30" rows="1" formControlName="reply"></textarea>
+        <div class="form-footer">
+          <button class="btn" *ngIf="userId === reply.userId" type="submit">
+            Save reply
+          </button>
+          <button class="btn" (click)="toggleEditMode()" type="button">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="reply-footer">
+    <button
+      [disabled]="!userId"
+      class="btn"
+      [ngStyle]="{
+        'background-color': voteStatus == 1 ? '#73c7af' : '#ffffff'
+      }"
+      (click)="updateVote(1)"
+    >
+      Upvote
+    </button>
+    {{ voteCount }}
+    <button
+      [disabled]="!userId"
+      class="btn"
+      [ngStyle]="{
+        'background-color': voteStatus == -1 ? '#73c7af' : '#ffffff'
+      }"
+      (click)="updateVote(-1)"
+    >
+      Downvote
+    </button>
+  </div>
+</div>

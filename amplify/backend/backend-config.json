@@ -1,6 +1,6 @@
 {
   "auth": {
-    "amazingblogshite6d488b46": {
+    "amazingblogshite576baaa4": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -25,6 +25,13 @@
       }
     }
   },
+  "hosting": {
+    "amplifyhosting": {
+      "service": "amplifyhosting",
+      "providerPlugin": "awscloudformation",
+      "type": "manual"
+    }
+  },
   "storage": {
     "blogsDB": {
       "service": "DynamoDB",
@@ -42,9 +49,12 @@
           "resourceName": "blogsDB",
           "attributes": [
             "Name",
-            "Arn",
-            "StreamArn"
-          ]
+            "Arn"
+          ],
+          "attributeEnvMap": {
+            "Name": "TABLE_NAME",
+            "Arn": "TABLE_ARN"
+          }
         }
       ]
     }

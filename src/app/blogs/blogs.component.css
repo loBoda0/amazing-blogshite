@@ -1,0 +1,36 @@
+.blog-card {
+  display: flex;
+  height: 400px;
+  border-radius: 1rem;
+  overflow: hidden;
+  margin: 1rem;
+}
+
+.blog-card:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.card-body {
+  margin: 1rem;
+}
+
+img {
+  height: auto;
+  width: 400px;
+  object-fit: cover;
+}
+
+@media screen and (max-width: 767px) {
+  .blog-card {
+    flex-direction: column;
+  }
+
+  .blog-card:nth-child(even) {
+    flex-direction: column;
+  }
+
+  img {
+    width: 100%;
+    max-height: 300px;
+  }
+}
