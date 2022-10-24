@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -37,7 +38,7 @@ import { ShortenPipe } from './blogs/shorten.pipe';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [BlogService, AuthService],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, BlogService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
