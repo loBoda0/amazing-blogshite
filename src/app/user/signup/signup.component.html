@@ -4,16 +4,31 @@
   <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
     <label for="username">Username</label>
     <input type="text" id="username" formControlName="username" />
+    <span
+      *ngIf="
+        !signUpForm.get('username').valid && signUpForm.get('username').touched
+      "
+      >Enter username</span
+    >
     <label for="password">Password</label>
     <input type="password" formControlName="password" id="password" />
+    <span
+      *ngIf="
+        !signUpForm.get('password').valid && signUpForm.get('password').touched
+      "
+      >Enter password</span
+    >
     <label for="email">Email</label>
     <input type="text" formControlName="email" id="email" />
+    <span
+      *ngIf="!signUpForm.get('email').valid && signUpForm.get('email').touched"
+      >Enter valid email</span
+    >
     <button type="submit">Submit</button>
-    <input
-      type="text"
-      formControlName="verificationCode"
-      *ngIf="formState === 'confirmSignUp'"
-    />
+    <div *ngIf="formState === 'confirmSignUp'">
+      <label for="verification">Enter code from email</label>
+      <input type="text" formControlName="verificationCode" />
+    </div>
   </form>
   <a routerLink="/login">Or log in</a>
 </div>
